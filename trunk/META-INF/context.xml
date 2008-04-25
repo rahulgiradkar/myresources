@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Context auth="Container">
+<!-- O driver jdbc deve estar no lib do tomcat -->
+
+<!-- 
+# auth –> Atribui ao Apache Tomcat a responsabilidade de gerenciar a abertura e o fechamento das conexões 
+# name –> Nome dado ao pool de conexões. Deve obedecer o formato JNDI
+ -->
+ 
+<Resource
+	name="jdbc/resourcePool"
+	type="javax.sql.DataSource"
+	url="jdbc:hsqldb:hsql://localhost/aula"
+	driverClassName="org.hsqldb.jdbcDriver"
+	username="sa"
+	password=""
+	maxActive="100"
+	maxIdle="20"/>	
+<!-- 
+# type –> Especifica o tipo como sendo DataSource
+# url –> Especifica a localização do banco de dados. Deve obedecer o formato URL JDBC
+# driverClassName –> Nome da classe do driver JDBC do banco de dados
+# username –> Nome do usuário do BD
+# password –> Senha do usuário do BD
+# maxActive –> Número máximo de conexões ativas no pool
+# maxIdle –> Número máximo de conexões inativas no pool
+# maxWait –> Tempo máximo de espera por uma conexão, em milissegundos 
+ -->
+</Context>
