@@ -55,6 +55,7 @@
             <fileset dir="${web.dir}">
                 <include name="**/*.*"/>
             	<exclude name="**/${deploy.dir}/*"/>
+            	<exclude name="**/db/*"/>
             	<exclude name="**/*.project"/>
             </fileset>
         </copy>
