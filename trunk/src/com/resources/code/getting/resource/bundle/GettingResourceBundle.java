@@ -9,9 +9,10 @@ public class GettingResourceBundle
 	/* a default											  */
 	public static void main(String[] args)
 	{		
-		Locale locale_fr = new Locale("fr","FR","");
+		Locale locale_fr = new Locale("fr");
+		//Locale locale_fr = Locale.FRANCE;
 		ResourceBundle bundle = ResourceBundle.getBundle("myBundle", locale_fr);
 		
-		System.out.println( bundle.getString("firstEntry") );		
+		System.out.println( bundle.getString("i18n") );		
 	}
 }
