@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 2.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-2.0.dtd">
+
+<hibernate-mapping>
+
+    <class name="iFactory.treinamento.hibernate.domain.Client" table="CLIENTE">
+    	<cache usage="read-only"/>
+        <id name="id" column="CLI_ID">
+            <generator class="native"/>
+        </id>
+
+       	<property name="name" column="nome" length="50"/>
+
+       	<component name="address">
+       		<property name="city" column="cidade" />
+       		<property name="state" column="estado" />
+       		<property name="street" column="logradouro" />
+       		<property name="poBox" column="cep" />
+       	</component>
+
+        <joined-subclass name="iFactory.treinamento.hibernate.domain.ClientVip" table="CLIENTE_VIP">
+        	<key column="VCLI_ID" foreign-key="vcli_cli_fk"/>
+        	<property name="offPrice" column="desconto"/>
+        </joined-subclass>
+
+    </class>
+
+
+</hibernate-mapping>

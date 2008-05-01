@@ -1,0 +1,11 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<dataset>
+  <CATEGORIA CAT_ID="1" NOME="Categoria 0"/>
+  <CATEGORIA CAT_ID="2" NOME="Categoria 1"/>
+  <CATEGORIA CAT_ID="3" NOME="Categoria 2"/>
+  <CATEGORIA CAT_ID="4" NOME="Categoria 3"/>
+  <CATEGORIA CAT_ID="5" NOME="Categoria 4"/>
+  <CATEGORIA CAT_ID="6" NOME="Categoria 5"/>
+  <CATEGORIA CAT_ID="7" NOME="Categoria 6"/>
+  <CATEGORIA CAT_ID="8" NOME="test insert"/>
+</dataset>

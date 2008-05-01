@@ -1,7 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="src" path="spring"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="lib" path="WEB-INF/lib/hsqldb.jar"/>
+	<classpathentry kind="lib" path="WEB-INF/lib/spring_hibernate/aopalliance.jar"/>
+	<classpathentry kind="lib" path="WEB-INF/lib/spring_hibernate/aspectjrt.jar"/>
+	<classpathentry kind="lib" path="WEB-INF/lib/spring_hibernate/aspectjweaver.jar"/>
+	<classpathentry kind="lib" path="WEB-INF/lib/spring_hibernate/cglib-nodep-2.1_3.jar"/>
+	<classpathentry kind="lib" path="WEB-INF/lib/spring_hibernate/commons-collections.jar"/>
+	<classpathentry kind="lib" path="WEB-INF/lib/spring_hibernate/commons-logging.jar"/>
+	<classpathentry kind="lib" path="WEB-INF/lib/spring_hibernate/dbunit-2.2.jar"/>
+	<classpathentry kind="lib" path="WEB-INF/lib/spring_hibernate/dbunit-2.2-sources.jar"/>
+	<classpathentry kind="lib" path="WEB-INF/lib/spring_hibernate/dom4j-1.6.1.jar"/>
+	<classpathentry kind="lib" path="WEB-INF/lib/spring_hibernate/easymock.jar"/>
+	<classpathentry kind="lib" path="WEB-INF/lib/spring_hibernate/ehcache-0.9.jar"/>
+	<classpathentry kind="lib" path="WEB-INF/lib/spring_hibernate/hibernate2.jar"/>
+	<classpathentry kind="lib" path="WEB-INF/lib/spring_hibernate/hsqldb.jar"/>
+	<classpathentry kind="lib" path="WEB-INF/lib/spring_hibernate/jaxen-1.1-beta-7.jar"/>
+	<classpathentry kind="lib" path="WEB-INF/lib/spring_hibernate/jstl.jar"/>
+	<classpathentry kind="lib" path="WEB-INF/lib/spring_hibernate/jta.jar"/>
+	<classpathentry kind="lib" path="WEB-INF/lib/spring_hibernate/log4j-1.2.14.jar"/>
+	<classpathentry kind="lib" path="WEB-INF/lib/spring_hibernate/odmg-3.0.jar"/>
+	<classpathentry kind="lib" path="WEB-INF/lib/spring_hibernate/oscache-2.4.jar"/>
+	<classpathentry kind="lib" path="WEB-INF/lib/spring_hibernate/spring.jar"/>
+	<classpathentry kind="lib" path="WEB-INF/lib/spring_hibernate/spring-hibernate2.jar"/>
+	<classpathentry kind="lib" path="WEB-INF/lib/spring_hibernate/standard.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
 	<classpathentry kind="output" path="WEB-INF/classes"/>
 </classpath>

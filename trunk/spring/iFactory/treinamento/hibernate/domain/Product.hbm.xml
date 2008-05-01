@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 2.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-2.0.dtd">
+
+<hibernate-mapping>
+
+    <class name="iFactory.treinamento.hibernate.domain.Product"  table="PRODUTO"
+    		discriminator-value="P">
+    	<!--cache usage="read-write"/-->
+        <id name="id" column="PROD_ID">
+            <generator class="native"/>
+        </id>
+
+        <discriminator column="tipo_produto" type="character" />
+
+        <property name="name" column="nome" length="50" not-null="true" unique="true"/>
+
+        <property name="price" column="preco" not-null="true" />
+
+        <many-to-one name="category" column="CAT_ID" outer-join="false" foreign-key="prod_cat_fk"/>
+
+        <subclass name="iFactory.treinamento.hibernate.domain.SimpleProduct"
+        		discriminator-value="C">
+        	<property name="weight" column="peso"/>
+        </subclass>
+
+        <subclass name="iFactory.treinamento.hibernate.domain.ProductSoftware"
+        		discriminator-value="S">
+        	<property name="version" column="versao" length="14"/>
+        </subclass>
+
+    </class>
+
+
+</hibernate-mapping>
