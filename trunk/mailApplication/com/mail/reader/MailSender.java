@@ -13,6 +13,7 @@ import java.util.Properties;
 
 import javax.mail.Message;
 import javax.mail.MessagingException;
+import javax.mail.Multipart;
 import javax.mail.PasswordAuthentication;
 import javax.mail.Session;
 import javax.mail.Transport;
@@ -22,15 +23,15 @@ import javax.mail.internet.MimeMessage;
 public class MailSender
 {
 
-	private static final String SMTP_HOST_NAME = "smtp.gmail.com";
-	private static final String SMTP_PORT = "465";
-	private static final String emailMsgTxt = "Test Message Contents";
-	private static final String emailSubjectTxt = "A test from gmail";
-	private static final String emailFromAddress = "jpaulo.melo@gmail.com";
-	private static final String SSL_FACTORY = "javax.net.ssl.SSLSocketFactory";
-	private static final String[] sendTo = { "joao.fernandes@ifactory.com.br" };
-	private static final String SENDER_PASS = "19650917@";
-	private static final String SENDER_USER = "jpaulo.melo";
+	public static final String SMTP_HOST_NAME = "smtp.gmail.com";
+	public static final String SMTP_PORT = "465";
+	public static final String emailMsgTxt = "Test Message Contents";
+	public static final String emailSubjectTxt = "A test from gmail";
+	public static final String emailFromAddress = "jpaulo.melo@gmail.com";
+	public static final String SSL_FACTORY = "javax.net.ssl.SSLSocketFactory";
+	public static final String[] sendTo = { "joao.fernandes@ifactory.com.br" };
+	public static final String SENDER_PASS = "19650917@";
+	public static final String SENDER_USER = "jpaulo.melo";
 	
 	
 	public static void main(String args[]) throws Exception
@@ -44,7 +45,7 @@ public class MailSender
 	}
 
 	public void sendSSLMessage(String recipients[], String subject,
-			String message, String from) throws MessagingException
+			Object message, String from) throws MessagingException
 	{
 		boolean debug = true;
 
@@ -73,7 +74,13 @@ public class MailSender
 
 		// Setting the Subject and Content Type
 		msg.setSubject(subject);
-		msg.setContent(message, "text/plain");
+		
+		if(message instanceof Multipart){
+			msg.setContent((Multipart)message);
+		}else{
+			msg.setContent(message, "text/plain");
+		}
+		
 		Transport.send(msg);
 	}
 }
