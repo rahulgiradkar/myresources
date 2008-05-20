@@ -2,6 +2,7 @@
 <classpath>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="src" path="spring"/>
+	<classpathentry kind="src" path="mailApplication"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="lib" path="WEB-INF/lib/hsqldb.jar"/>
 	<classpathentry kind="lib" path="WEB-INF/lib/spring_hibernate/aopalliance.jar"/>
@@ -26,6 +27,13 @@
 	<classpathentry kind="lib" path="WEB-INF/lib/spring_hibernate/spring.jar"/>
 	<classpathentry kind="lib" path="WEB-INF/lib/spring_hibernate/spring-hibernate2.jar"/>
 	<classpathentry kind="lib" path="WEB-INF/lib/spring_hibernate/standard.jar"/>
+	<classpathentry kind="lib" path="WEB-INF/lib/mail/activation.jar"/>
+	<classpathentry kind="lib" path="WEB-INF/lib/mail/dsn.jar"/>
+	<classpathentry kind="lib" path="WEB-INF/lib/mail/imap.jar"/>
+	<classpathentry kind="lib" path="WEB-INF/lib/mail/mail.jar"/>
+	<classpathentry kind="lib" path="WEB-INF/lib/mail/mailapi.jar"/>
+	<classpathentry kind="lib" path="WEB-INF/lib/mail/pop3.jar"/>
+	<classpathentry kind="lib" path="WEB-INF/lib/mail/smtp.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
 	<classpathentry kind="output" path="WEB-INF/classes"/>
 </classpath>
