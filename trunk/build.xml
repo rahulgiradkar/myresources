@@ -57,6 +57,9 @@
             	<exclude name="**/${deploy.dir}/*"/>
             	<exclude name="**/db/*"/>
             	<exclude name="**/*.project"/>
+            	<exclude name="./*.properties"/>
+            	<exclude name="./*.xml"/>
+            	<exclude name="./*.doc"/>
             </fileset>
         </copy>
     </target>
