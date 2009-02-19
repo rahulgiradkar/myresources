@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE struts-config PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 1.1//EN"
+                               "http://jakarta.apache.org/struts/dtds/struts-config_1_1.dtd">
+
+<struts-config>
+	<form-beans>
+		
+		<form-bean name="cadastrarUsuarioForm" type="jm.form.CadastrarUsuarioForm" />
+		
+		<form-bean name="cadastrarDynaActionForm" type="org.apache.struts.action.DynaActionForm">
+			<form-property name="name" type="java.lang.String" />			
+			<form-property name="produto" type="java.lang.String[]" />
+		</form-bean>
+		
+	</form-beans>
+
+	<global-forwards type="org.apache.struts.action.ActionForward" />
+
+	<action-mappings type="org.apache.struts.action.ActionMapping">
+		<action name="cadastrarUsuarioForm"
+			type="jm.action.CadastrarUsuarioAction" path="/cadastrarusuario"
+			input="/jsp/index.jsp" scope="session" validate="true">
+			<forward name="telaCadastro" path="/jsp/sucesso.jsp"
+				redirect="false" />
+		</action>
+
+		<!-- Dyna acton form -->
+		<action name="cadastrarDynaActionForm"
+			type="jm.action.CadastrarDynaActionForm"
+			path="/cadastrarDynaActionForm" input="/jsp/dynaactionform.jsp"
+			scope="session" validate="false">
+			<forward name="telaCadastro" path="/jsp/sucesso.jsp" redirect="false" />
+		</action>
+	</action-mappings>
+
+
+
+	<message-resources parameter="jm.ApplicationResources" />
+
+	<plug-in className="org.apache.struts.validator.ValidatorPlugIn">
+		<set-property property="pathnames"
+			value="/WEB-INF/validator-rules.xml,
+                                                  /WEB-INF/validation.xml" />
+	</plug-in>
+</struts-config>
