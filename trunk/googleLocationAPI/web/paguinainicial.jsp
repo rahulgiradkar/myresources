@@ -105,36 +105,28 @@
 }
     
     
-    function drawCircle(point) {
+    function drawCircle(overlay, point) {
 	   
 		var clickPointPixel = map.fromLatLngToDivPixel(new GLatLng(-3.832997, -38.504215));
-		var outerPoint = map.fromLatLngToDivPixel(new GLatLng(-3.832997, -40.504215));
+		var outerPoint = map.fromLatLngToDivPixel(point);
 		var circleRadius = distancePoint2Point(clickPointPixel,outerPoint);
 		//alert(circleRadius);
 		newGraphicPoints = getCircleCoords(clickPointPixel.x,clickPointPixel.y,circleRadius,60);
 		//alert(newGraphicPoints);
 		isFirstPoint = false;
 		//map.removeOverlay(newGraphic);	   
-	    newGraphic = new GPolygon([newGraphicPoints], "#f33f00", 5, 1, "#ff0000", 0.2);
-	    map.addOverlay(newGraphic);
-		
+	    newGraphic = new GPolygon(newGraphicPoints, "#f33f00", 5, 1, "#ff0000", 0.2);
+	    map.addOverlay(newGraphic);		
  	}
+
+
     
     function load() {
     	map = new GMap2(document.getElementById("map_canvas"));
 		map.setCenter(new GLatLng(-3.832997, -38.504215), 13);
 		map.setUIToDefault();
 
-		GEvent.addListener(map, "click", function(overlay,latlng) {
-
-			var clickPointPixel = map.fromLatLngToDivPixel(new GLatLng(-3.832997, -38.504215));
-			var outerPoint = map.fromLatLngToDivPixel(latlng);
-			var circleRadius = distancePoint2Point(clickPointPixel,outerPoint);
-			//alert(circleRadius);
-			newGraphicPoints = getCircleCoords(clickPointPixel.x,clickPointPixel.y,circleRadius,60);	         
-	       	  var polygon = new GPolygon(newGraphicPoints, "#f33f00", 5, 1, "#ff0000", 0.2);
-			  map.addOverlay(polygon);
-	        });
+		GEvent.addListener(map, "click", drawCircle);
 
 		// Add 10 markers to the map at random locations
 		var bounds = map.getBounds();
