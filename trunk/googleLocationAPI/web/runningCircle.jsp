@@ -17,11 +17,9 @@
 
     function distancePoint2Point(P, Q){  
   	   dx = P.x - Q.x;
-  	   dy = P.y - Q.y;
-  	
-  	   var d = Math.sqrt(dx * dx + dy * dy);
-  	   ////_logger.info("distancePoint2Point=" + d )
-    		return  d;
+  	   dy = P.y - Q.y;  	
+  	   var d = Math.sqrt(dx * dx + dy * dy);  	   
+       return  d;
   	}
 
      function getCircleCoords (centerX, centerY, r, numPoints) {
@@ -32,40 +30,28 @@
  		var yDifs = new Array();
  		
  		var minX = centerX - r;
- 		var maxX = centerX + r;
- 		
- 		
- 		////_logger.info("getCircleCoords " + centerX + "," + centerY + "," + r + "," + numPoints + "," + minX + "," + maxX);
- 		
+ 		var maxX = centerX + r; 		
  		
  		var increment = (maxX - minX) / numPoints;
- 		
- 		////_logger.info("increment=" + increment)
- 		
+
  		if(increment <= 0) return;
  		
  		var curX = minX;
- 		var curY = 0;
- 		
+ 		var curY = 0; 		
 
- 		var yDif = 0;
- 	    
+ 		var yDif = 0;	    
  	    	
  	    var haveFirst = false;
  		
- 		var i = 0;
+ 		var i = 0; 		
  		
- 		
- 		while ((curX <= maxX) || (i < 61)){
+ 		while ((curX <= maxX) || (i < 61))
+ 	 	{ 			
+ 			curY = Math.sqrt(Math.pow(r,2) - Math.pow((curX - centerX),2)) + centerY; 			
  			
- 			curY = Math.sqrt(Math.pow(r,2) - Math.pow((curX - centerX),2))    + centerY;
- 			
- 			
- 			  if(isNaN(Math.sqrt(Math.pow(r,2) - Math.pow((curX - centerX),2)))) {
- 			     ////_logger.info("DIFFERENCE IS ZERO");
- 				 curY = centerY;
- 			  }
-
+		    if(isNaN(Math.sqrt(Math.pow(r,2) - Math.pow((curX - centerX),2)))) {		     
+			 curY = centerY;
+		    }
  			
  			yDif = 2*(curY - centerY);
  	
@@ -76,43 +62,40 @@
  			coords[i] = map.fromDivPixelToLatLng(new GPoint(curX,curY));
  			
  			curX += increment;
-
  			
  			i++;
- 			
- 			
- 			
  		}
  		
  		
  		//now add bottom half of circle
  		var bottomY;
- 		for(k = xCoords.length-1; k > -1; k--){
- 		
+ 		for(k = xCoords.length-1; k > -1; k--){ 		
  			bottomY = yCoords[k] - yDifs[k];
-
- 			coords[i] = map.fromDivPixelToLatLng(new GPoint(xCoords[k],bottomY));
- 			
+ 			coords[i] = map.fromDivPixelToLatLng(new GPoint(xCoords[k],bottomY)); 			
  			i++;
- 		}
+ 		}		
  		
- 		
- 		return coords;
- 		
+ 		return coords; 		
  }
 
 
      function gerarArea(){
  		// Pega stillPoint e calcula a distancia possivel percorrida.
  		// Pega o modo de fulga * a diferença de tempo em seg
- 		 // Gera area de fulga
+ 		 // Gera area de fulga    	
+ 		if(newGraphic != null){        	
+        	map.removeOverlay(newGraphic);
+        } 
+        
     	modoFulga = document.getElementById("myForm").modoFulga.value;
-		difTempo = 100; // 100 segundos depois
-		alert(modoFulga);
+
+    	var curdate = new Date();    	
+		difTempo = 10 * curdate.getSeconds(); // 100 segundos depois
+		
 		distancia = modoFulga * difTempo;
-		alert(distancia);		
+				
 		novaLat = stillMarker.getPoint().lat() + (distancia * 0.00001)/1.11;
-		alert(novaLat);
+		
 		newPoint = new GLatLng(novaLat, stillMarker.getPoint().lng());
 		
 		// Draw circle
@@ -121,10 +104,16 @@
 		var circleRadius = distancePoint2Point(clickPointPixel,outerPoint);
 		
 		newGraphicPoints = getCircleCoords(clickPointPixel.x,clickPointPixel.y,circleRadius,60);
-		alert(newGraphicPoints);	   
+			   
 	    newGraphic = new GPolygon(newGraphicPoints, "#f33f00", 5, 1, "#ff0000", 0.2);
-	    map.addOverlay(newGraphic);	 
+	    map.addOverlay(newGraphic);	     	 
      }
+
+     function timeOutRender() 
+     {
+        gerarArea();
+     	setTimeout("timeOutRender()",5000);
+  	 }
      
     function markRunningPoint(overlay,point) {
 
@@ -140,7 +129,7 @@
           });
         
 	    map.addOverlay(stillMarker);
-	    gerarArea();  	
+	    timeOutRender(); 	    	
  	}
     
     function load() {
@@ -151,14 +140,6 @@
 		GEvent.addListener(map, "click", markRunningPoint);			
     }
 
-    
-    
-    function drawCircle(point1, point2) 
-    { 	   
-       
-			
- 	}
-        
    
     //]]>
     </script>
