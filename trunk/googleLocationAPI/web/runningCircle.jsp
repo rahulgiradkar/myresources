@@ -14,7 +14,9 @@
     var stillPlace = null;
     var stillMarker = null;
     var newGraphic = null;
-
+    var stillTime = null;
+    
+    
     function distancePoint2Point(P, Q){  
   	   dx = P.x - Q.x;
   	   dy = P.y - Q.y;  	
@@ -90,7 +92,7 @@
     	modoFulga = document.getElementById("myForm").modoFulga.value;
 
     	var curdate = new Date();    	
-		difTempo = 10 * curdate.getSeconds(); // 100 segundos depois
+		difTempo = calcDifDate(); // em segundos
 		
 		distancia = modoFulga * difTempo;
 				
@@ -114,9 +116,22 @@
         gerarArea();
      	setTimeout("timeOutRender()",5000);
   	 }
+
+    function calcDifDate(){
+		fakeDate = new Date();
+		stillTime = document.getElementById("horaFulga").value;
+		splitedTime = stillTime.split(":");
+		
+		fakeDate.setHours(splitedTime[0]);
+		fakeDate.setMinutes(splitedTime[1]);	
+			
+		atualDate = new Date();
+		return (atualDate.getTime() - fakeDate.getTime())/1000;		   	
+    }
      
     function markRunningPoint(overlay,point) {
-
+ 		fakeDate = new Date();
+ 		    	 
         if(stillMarker != null){
         	map.removeOverlay(stillMarker);
         	map.removeOverlay(newGraphic);
@@ -155,7 +170,7 @@
 </form>
 
 <br/>
-<input type="text" id="horaFulga" value="21:50" size="20"/>
+<input type="text" id="horaFulga" value="22:35" size="20"/>
 
 <br/>
 <input type="button" value="Gerar Area" onclick="gerarArea()"/>
