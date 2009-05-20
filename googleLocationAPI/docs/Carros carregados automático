@@ -1,5 +1,6 @@
 * A posição dos carros é salva em bancos.
-* A tela inicial mostra a posição e movimentação dos carros da policia.
+(Feito)* A tela inicial mostra a posição e movimentação dos carros da policia.
+- Os dados são carregados  
 
 *A tela inicial mostra os roubos acontecendo no momento, juntamente com detalhes 
 do roubo.
