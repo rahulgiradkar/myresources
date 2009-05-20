@@ -1,16 +1,4 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-<meta http-equiv="content-type" content="text/html; charset=utf-8" />
-<title>Google Maps JavaScript API Example</title>
-<script
-	src="http://maps.google.com/maps?file=api&amp;v=2&amp;key=ABQIAAAAu99GtYhiacXNoX665Vy5cBQdveTzYo9aFBi8nsLjId7OuftObRTg_VyEZGtAV1hMYjaFXARCp_9BiA"
-	type="text/javascript"></script>
-<script type="text/javascript">
-
-    //<![CDATA[
-    var map = null;
+ var map = null;
     var stillPlace = null;
     var stillMarker = null;
     var newGraphic = null;
@@ -147,34 +135,15 @@
 	    timeOutRender(); 	    	
  	}
     
+    
     function load() {
     	map = new GMap2(document.getElementById("map_canvas"));
 		map.setCenter(new GLatLng(-3.832997, -38.504215), 13);
 		map.setUIToDefault();
 
 		GEvent.addListener(map, "click", markRunningPoint);			
+		
     }
-
-   
-    //]]>
-    </script>
-</head>
-<body onload="load()" onunload="GUnload()">
-<div id="map_canvas" style="width: 700px; height: 600px; border-width:1px; border-style: solid;border-color: #000000"></div>
-<div>
-<!-- O valor da fulga é em M/s -->
-<form action="" id="myForm">
-	
-	<input type="radio" name="modoFulga" value="5">bicicleta</input>
-	
-</form>
-
-<br/>
-<input type="text" id="horaFulga" value="22:35" size="20"/>
-
-<br/>
-<input type="button" value="Gerar Area" onclick="gerarArea()"/>
-
-</div>
-</body>
-</html>
+    
+    
+    
