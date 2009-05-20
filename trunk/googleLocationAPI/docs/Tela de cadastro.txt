@@ -1,0 +1,21 @@
+*** A tela de cadastro inicial vem para facilitar o cadastro dos roubos.
+
+* O usuário recebe a chamada, entra com o nome da rua e número.
+
+* Localizado o local do delito o usuario entra com os detalhe do roubo:
+ - O que foi roubado
+ - Como foi roubado
+	
+* O usuário entra com os detalhes do bandido:
+ - Cabelo
+ - Cor
+ - Altura
+ - Cor das roupas
+ - Tipo das roupas
+ 
+* O usuario entra com o modo de fuga do bandido.
+ - Veiculo utilizado
+ - Direção tomada (Poderá ser a imagem do Marcador )
+ 
+* O usuário entra com o carro mais proximo para atender a ocorrência.
+* O usuario salva as informações.
