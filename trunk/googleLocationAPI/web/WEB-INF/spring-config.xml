@@ -1,0 +1,117 @@
+
+<!DOCTYPE beans PUBLIC
+    "-//SPRING//DTD BEAN//EN" 
+    "http://www.springframework.org/dtd/spring-beans.dtd">
+<beans>
+
+	<!-- <bean id="dataSource"
+		class="org.apache.commons.dbcp.BasicDataSource"
+		destroy-method="close">
+		<property name="driverClassName" value="com.microsoft.sqlserver.jdbc.SQLServerDriver" />
+		  
+		<property name="url"	
+			value="jdbc:sqlserver://192.168.0.109;databaseName=sgt_cet" />
+		<property name="username" value="sgt" />
+		<property name="password" value="netel" />
+	
+	</bean> -->
+
+
+	<bean id="dataSource"
+		class="org.springframework.jndi.JndiObjectFactoryBean">
+		<property name="jndiName">
+			<value>java:comp/env/jdbc/sgt</value>
+		</property>
+	</bean>
+
+	
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="mappingResources">
+			<list>
+				<value>com/copsearch/model/Veiculo.hbm.xml</value>				
+				<value>com/copsearch/model/Localizacao.hbm.xml</value>
+			</list>
+		</property>
+		<property name="annotatedClasses">
+			<list>
+				<value>com.copsearch.model.Veiculo</value>																							
+				<value>com.copsearch.model.Localizacao</value>
+			</list>
+		</property>
+		
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">
+					org.hibernate.dialect.SQLServerDialect
+					<!--  org.hibernate.dialect.OracleDialect -->  
+				</prop>
+				<prop key="hibernate.hbm2ddl.auto">create</prop>
+				<!--	<prop key="hibernate.cglib.use_reflection_optimizer">false</prop> -->
+				<!--	<prop key="hibernate.show_sql">true</prop> -->
+				<prop key="hibernate.cglib.use_reflection_optimizer">false</prop>
+			</props>
+		</property>
+	</bean>
+	
+	<bean id="transactionManager"
+		class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+		<property name="sessionFactory">
+			<ref local="sessionFactory" />
+		</property>
+	</bean>
+
+	<bean id="hibernateDao" class="com.copsearch.hibernate.HibernateDaoSupport">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	
+	<bean id="autoproxy"
+		class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator" />
+
+	<bean id="transactionAdvisor"
+		class="org.springframework.transaction.interceptor.TransactionAttributeSourceAdvisor">
+		<constructor-arg>
+			<ref bean="transactionInterceptor" />
+		</constructor-arg>
+	</bean>
+	
+	<bean id="transactionInterceptor"
+		class="org.springframework.transaction.interceptor.TransactionInterceptor">
+		<property name="transactionManager" ref="transactionManager" />
+		<property name="transactionAttributeSource">
+			<bean
+				class="org.springframework.transaction.annotation.AnnotationTransactionAttributeSource" />
+		</property>
+	</bean>
+	
+	<bean id="advisor" class="org.springframework.aop.support.RegexpMethodPointcutAdvisor">
+		<property name="advice">
+			<ref local="auditLogInterceptor"/>
+		</property>
+		<property name="patterns">
+			<list> 
+				<value>.*HibernateGenericDao.*\.insert.*</value>
+				<value>.*HibernateGenericDao.*\.saveOrUpdate.*</value>
+				<value>.*HibernateGenericDao.*\.update.*</value>
+				<value>.*HibernateGenericDao.*\.delete.*</value>
+			</list>
+		</property>
+	</bean>
+	
+	
+	<bean id="sqlMapDao"
+		class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+		<property name="transactionManager">
+			<ref bean="transactionManager" />
+		</property>		
+		<property name="transactionAttributes">
+			<props>
+				<prop key="insert">PROPAGATION_REQUIRED</prop>
+				<prop key="update*">PROPAGATION_REQUIRED</prop>
+				<prop key="delete*">PROPAGATION_REQUIRED</prop>
+				<prop key="*">PROPAGATION_REQUIRED,readOnly</prop>
+			</props>
+		</property>
+	</bean>	
+</beans>
