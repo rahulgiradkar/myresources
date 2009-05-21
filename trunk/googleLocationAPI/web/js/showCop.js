@@ -11,9 +11,10 @@ copCars[1] = new GMarker(new GLatLng(-3.843889, -38.513215), markerOptions);
 copCars[2] = new GMarker(new GLatLng(-3.854776, -38.525214), markerOptions);
 copCars[3] = new GMarker(new GLatLng(-3.865665, -38.537213), markerOptions);
 
-function testMark(){
-	
+function testMark(){	
 	for (mark in copCars){		
 		map.addOverlay(copCars[mark]);
 	}		
 }
+
+
