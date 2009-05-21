@@ -13,9 +13,10 @@
 
 
 
-<script  src="dwr/engine.js"></script>
-<script  src="dwr/util.js"></script>
-<script src="dwr/interface/Veiculo.js"></script>
+<script type='text/javascript' src='/build-automatico/dwr/interface/Veiculo.js'></script>
+<script type='text/javascript' src='/build-automatico/dwr/engine.js'></script>
+<script type='text/javascript' src='/build-automatico/dwr/util.js'></script>
+
 
 <script type="text/javascript" src="../js/googleCode.js"></script> 
 <script type="text/javascript" src="../js/showCop.js"></script> 

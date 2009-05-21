@@ -7,6 +7,8 @@ import java.util.List;
 
 import com.copsearch.business.VeiculoBusiness;
 
+import flexjson.JSONSerializer;
+
 /**
  * Comentário
  *
@@ -16,10 +18,20 @@ import com.copsearch.business.VeiculoBusiness;
  */
 public class DWRVeiculo {
 
-	public String getPosition(Long idVeiculo){
-		
-		//VeiculoBusiness business = new VeiculoBusiness();
-		//List l = business.teste();
+	private VeiculoBusiness veiculoBusiness;
+	public String getPosition(Long idVeiculo)
+	{
+		List l = veiculoBusiness.teste();
+		JSONSerializer serializer = new JSONSerializer();
+		serializer.serialize(l);
 		return "Ok";
 	}
+	
+	public VeiculoBusiness getVeiculoBusiness() {
+		return veiculoBusiness;
+	}
+	public void setVeiculoBusiness(VeiculoBusiness veiculoBusiness) {
+		this.veiculoBusiness = veiculoBusiness;
+	}	
+	
 }
