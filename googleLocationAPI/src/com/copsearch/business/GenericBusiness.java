@@ -3,7 +3,7 @@
  */
 package com.copsearch.business;
 
-import br.com.enovar.trex.core.dao.IHibernateGenericDao;
+import com.copsearch.hibernate.HibernateGenericDao;
 
 /**
  * Comentário
@@ -13,13 +13,13 @@ import br.com.enovar.trex.core.dao.IHibernateGenericDao;
  * @since 20/05/2009
  */
 public class GenericBusiness {
-	private IHibernateGenericDao hibernateDao;
+	private HibernateGenericDao hibernateDao;
 
-	public IHibernateGenericDao getHibernateDao() {
+	public HibernateGenericDao getHibernateDao() {
 		return hibernateDao;
 	}
 
-	public void setHibernateDao(IHibernateGenericDao hibernateDao) {
+	public void setHibernateDao(HibernateGenericDao hibernateDao) {
 		this.hibernateDao = hibernateDao;
 	}
 	

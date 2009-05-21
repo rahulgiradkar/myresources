@@ -3,6 +3,10 @@
  */
 package com.copsearch.dwr;
 
+import java.util.List;
+
+import com.copsearch.business.VeiculoBusiness;
+
 /**
  * Comentário
  *
@@ -13,6 +17,9 @@ package com.copsearch.dwr;
 public class DWRVeiculo {
 
 	public String getPosition(Long idVeiculo){
-		return null;
+		
+		//VeiculoBusiness business = new VeiculoBusiness();
+		//List l = business.teste();
+		return "Ok";
 	}
 }

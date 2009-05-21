@@ -1,13 +1,9 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html >
 <head>
-<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+
 <title>Google Maps JavaScript API Example</title>
 
-  <script type='text/javascript' src='dwr/interface/Veiculo.js'></script>
-  <script type='text/javascript' src='dwr/engine.js'></script>
-  <script type='text/javascript' src='dwr/util.js'></script>
+
   
 <script
 	src="http://maps.google.com/maps?file=api&amp;v=2&amp;key=ABQIAAAAu99GtYhiacXNoX665Vy5cBQdveTzYo9aFBi8nsLjId7OuftObRTg_VyEZGtAV1hMYjaFXARCp_9BiA"
@@ -15,9 +11,25 @@
 
 
 
+
+
+<script  src="dwr/engine.js"></script>
+<script  src="dwr/util.js"></script>
+<script src="dwr/interface/Veiculo.js"></script>
+
 <script type="text/javascript" src="../js/googleCode.js"></script> 
 <script type="text/javascript" src="../js/showCop.js"></script> 
+<script type="text/javascript" >
 
+function test(){	
+	//alert(Veiculo);
+	Veiculo.getPosition(null, resultado);
+}
+
+function resultado(resulta){	
+	alert(resulta);
+}
+</script>
 </head>
 
 
@@ -34,7 +46,8 @@
 <br/>
 <input type="text" id="horaFulga" value="22:35" size="20"/>
 <br/>
-<input type="button" value="Gerar Area" onclick="testMark()"/>
+
+<input type="button" value="Gerar Area" onclick="javascript:test()"/>
 </div>
 
 

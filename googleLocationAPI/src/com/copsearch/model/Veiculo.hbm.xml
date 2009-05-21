@@ -3,15 +3,9 @@
     "-//Hibernate/Hibernate Mapping DTD 1.1//EN" 
     "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>    
-   <query name="br.com.eit.sgt.model.ContratoInfracao.buscaImagemObrigatoriaPorFaixaETipoInfracao">	
-	select ci.tipoImagem
-	from br.com.eit.sgt.model.Faixa f
-	     inner join f.site.contrato c,     	 
-    	 br.com.eit.sgt.model.ContratoInfracao ci     
-	
-	where f.codigo = :idFaixa and      	  
-          c.codigo = ci.contrato.codigo and
-          ci.tipoInfracao.codigo = :idTipoInfracao
+   <query name="com.copsearch.model.Veiculo.buscaAll">	
+	select v
+	from com.copsearch.model.Veiculo v	
     </query>  
         
 </hibernate-mapping>
