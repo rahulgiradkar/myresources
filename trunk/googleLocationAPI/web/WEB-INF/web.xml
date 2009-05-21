@@ -26,15 +26,6 @@
 		<url-pattern>*.do</url-pattern>
 	</filter-mapping>
 
-	<filter-mapping>
-		<filter-name>HibernateFilter</filter-name>
-		<url-pattern>/dwr/*</url-pattern>
-	</filter-mapping>
-	
-	<filter-mapping>
-		<filter-name>HibernateFilter</filter-name>
-		<url-pattern>/sgtServices/*</url-pattern>
-	</filter-mapping>
 
 	<listener>
 		<listener-class>
@@ -46,7 +37,7 @@
 	<servlet>
 		<servlet-name>dwr-invoker</servlet-name>
 		<display-name>DWR Servlet</display-name>
-		<servlet-class>org.directwebremoting.servlet.DwrServlet</servlet-class>
+		<servlet-class>uk.ltd.getahead.dwr.DWRServlet</servlet-class>
 		<init-param>
 			<param-name>debug</param-name>
 			<param-value>true</param-value>
