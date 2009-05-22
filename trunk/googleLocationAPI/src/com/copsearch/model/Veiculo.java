@@ -47,7 +47,7 @@ public class Veiculo {
 		this.codigo = codigo;
 	}
 	
-	@OneToOne(cascade = {}, fetch = FetchType.LAZY)
+	@OneToOne(cascade = {}) //,fetch = FetchType.LAZY
 	@JoinColumn(name = "id_localizacao", unique = true, nullable = false, insertable = true, updatable = true)
 	public Localizacao getLocalizacao() {
 		return localizacao;

@@ -5,6 +5,9 @@ package com.copsearch.business;
 
 import java.util.List;
 
+import com.copsearch.model.Localizacao;
+import com.copsearch.model.Veiculo;
+
 /**
  * Comentário
  *
@@ -15,7 +18,8 @@ import java.util.List;
 public class VeiculoBusiness extends GenericBusiness implements IVeiculoBusiness {
 	
 	public List teste(){
-		getHibernateDao().executeQuery("com.copsearch.model.Veiculo.buscaAll");
-		return null;
+		List veiculos = getHibernateDao().executeQuery("com.copsearch.model.Veiculo.buscaAll");
+		Localizacao l = (Localizacao)((Veiculo)veiculos.get(0)).getLocalizacao();
+		return 	veiculos;
 	}
 }

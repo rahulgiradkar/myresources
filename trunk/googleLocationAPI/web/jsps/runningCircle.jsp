@@ -20,21 +20,10 @@
 
 <script type="text/javascript" src="../js/googleCode.js"></script> 
 <script type="text/javascript" src="../js/showCop.js"></script> 
-<script type="text/javascript" >
-
-function test(){	
-	//alert(Veiculo);
-	Veiculo.getPosition(null, resultado);
-}
-
-function resultado(resulta){	
-	alert(resulta);
-}
-</script>
 </head>
 
 
-<body onload="load(), testMark()" onunload="GUnload()">
+<body onload="load(), renderCars()" onunload="GUnload()">
 
 <div id="map_canvas" style="width: 700px; height: 600px; border-width:1px; border-style: solid;border-color: #000000"></div>
 
@@ -48,7 +37,7 @@ function resultado(resulta){
 <input type="text" id="horaFulga" value="22:35" size="20"/>
 <br/>
 
-<input type="button" value="Gerar Area" onclick="javascript:test()"/>
+<input type="button" value="Gerar Area" onclick="javascript:testMark()"/>
 </div>
 
 

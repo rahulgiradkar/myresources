@@ -5,6 +5,7 @@ package com.copsearch.dwr;
 
 import java.util.List;
 
+import com.copsearch.business.DWRBase;
 import com.copsearch.business.VeiculoBusiness;
 
 import flexjson.JSONSerializer;
@@ -16,22 +17,15 @@ import flexjson.JSONSerializer;
  * 
  * @since 20/05/2009
  */
-public class DWRVeiculo {
-
-	private VeiculoBusiness veiculoBusiness;
-	public String getPosition(Long idVeiculo)
+public class DWRVeiculo extends DWRBase {
+	
+	public String getPosition()
 	{
+		VeiculoBusiness veiculoBusiness = (VeiculoBusiness) getBusinessClass(VeiculoBusiness.class.getName());
 		List l = veiculoBusiness.teste();
-		JSONSerializer serializer = new JSONSerializer();
-		serializer.serialize(l);
-		return "Ok";
+		JSONSerializer serializer = new JSONSerializer();		
+		return serializer.serialize(l);
 	}
 	
-	public VeiculoBusiness getVeiculoBusiness() {
-		return veiculoBusiness;
-	}
-	public void setVeiculoBusiness(VeiculoBusiness veiculoBusiness) {
-		this.veiculoBusiness = veiculoBusiness;
-	}	
 	
 }

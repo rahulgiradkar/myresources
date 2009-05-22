@@ -32,7 +32,7 @@
 		<property name="hibernateProperties">
 			<props>
 				<prop key="hibernate.dialect">org.hibernate.dialect.HSQLDialect</prop>
-				<prop key="hibernate.hbm2ddl.auto">create</prop>
+				<!-- <prop key="hibernate.hbm2ddl.auto">create</prop> -->
 				<prop key="hibernate.cglib.use_reflection_optimizer">false</prop>
 			</props>
 		</property>
@@ -45,28 +45,12 @@
 		</property>
 	</bean>
 
+	<!-- daoTarget hibernateDao -->
 	<bean id="hibernateDao" class="com.copsearch.hibernate.HibernateGenericDao">
 		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
 	
-	<!-- bean id="daoTarget"
-		class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
-		<property name="transactionManager">
-			<ref bean="transactionManager" />
-		</property>
-		<property name="target">
-			<ref bean="daoTarget" />
-		</property>
-		<property name="transactionAttributes">
-			<props>
-				<prop key="insert">PROPAGATION_REQUIRED</prop>
-				<prop key="update*">PROPAGATION_REQUIRED</prop>
-				<prop key="delete*">PROPAGATION_REQUIRED</prop>
-				<prop key="retrieveById">PROPAGATION_REQUIRED</prop>
-				<prop key="*">PROPAGATION_REQUIRED,readOnly</prop>
-			</props>
-		</property>
-	</bean-->
+	
 	
 	<bean id="abstractTransactionDefinition"
 		class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean"
@@ -101,4 +85,24 @@
 				class="org.springframework.transaction.annotation.AnnotationTransactionAttributeSource" />
 		</property>
 	</bean>
+	
+	<!-- daoTarget hibernateDao
+	<bean id="daoTarget"
+		class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+		<property name="transactionManager">
+			<ref bean="transactionManager" />
+		</property>
+		<property name="target">
+			<ref bean="daoTarget" />
+		</property>
+		<property name="transactionAttributes">
+			<props>
+				<prop key="insert">PROPAGATION_REQUIRED</prop>
+				<prop key="update*">PROPAGATION_REQUIRED</prop>
+				<prop key="delete*">PROPAGATION_REQUIRED</prop>
+				<prop key="retrieveById">PROPAGATION_REQUIRED</prop>
+				<prop key="*">PROPAGATION_REQUIRED,readOnly</prop>
+			</props>
+		</property>
+	</bean> -->
 </beans>

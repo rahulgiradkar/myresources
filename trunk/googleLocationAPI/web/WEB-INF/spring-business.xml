@@ -6,12 +6,12 @@
 
 
 
-	<bean id="com.copsearch.dwr.DWRVeiculo" class="com.copsearch.business.VeiculoBusiness"
-		autowire="byName">
-	</bean>
+	<!-- bean id="com.copsearch.dwr.IDWRVeiculo" class="com.copsearch.dwr.DWRVeiculo" autowire="byName">
+	 	<property name="veiculoBusiness" ref="com.copsearch.business.VeiculoBusiness"/>
+	</bean -->
 
 	<!-- ### VeiculoBusiness ### -->
-	<bean id="com.copsearch.business.IVeiculoBusiness" class="com.copsearch.business.VeiculoBusiness"
+	<bean id="com.copsearch.business.VeiculoBusiness" class="com.copsearch.business.VeiculoBusiness"
 		autowire="byName">
 
 		<!--
