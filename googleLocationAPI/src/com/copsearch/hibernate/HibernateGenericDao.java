@@ -21,9 +21,9 @@ public class HibernateGenericDao extends HibernateDaoSupport
 		getHibernateTemplate().save(o);		
 	}
 	
-	public void executeQuery(String queryName)
+	public List executeQuery(String queryName)
 	{
-		getHibernateTemplate().findByNamedQuery(queryName);		
+		return getHibernateTemplate().findByNamedQuery(queryName);		
 	}
 	
 	public List executeQuery(String queryName, String[] parameterNames,
