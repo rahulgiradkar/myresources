@@ -21,7 +21,7 @@ function resultado(resulta){
 	}
 	for (mark in dataBaseCars){		
 		car = dataBaseCars[mark];
-		copCars[mark] = new GMarker(new GLatLng(car.localizacao.latitude, car.localizacao.longitude), markerOptions);
+		copCars[mark] = new GMarker(new GLatLng(car.localizacao.latitude, car.localizacao.longitude), markerOptions);		
 		map.addOverlay(copCars[mark]);
 	}
 }

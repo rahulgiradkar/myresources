@@ -1,4 +1,6 @@
  var map = null;
+ var mapClickListener = false;
+ 
     var stillPlace = null;
     var stillMarker = null;
     var newGraphic = null;
@@ -117,32 +119,53 @@
 		return (atualDate.getTime() - fakeDate.getTime())/1000;		   	
     }
      
-    function markRunningPoint(overlay,point) {
- 		fakeDate = new Date();
- 		    	 
+    
+    
+    
+    function markRunningPoint(overlay,point) {    	
+    	alert("OK");
+		GEvent.removeListener(mapClickListener);
+		
+		
+		fakeDate = new Date();
+    	 
         if(stillMarker != null){
         	map.removeOverlay(stillMarker);
         	map.removeOverlay(newGraphic);
         } 	   
     	stillPlace = point;
-    	stillMarker = new GMarker(point, {draggable: true} )
+    	stillMarker = new GMarker(point, {draggable: true, clickable: true} );
+    	
+    	
     	GEvent.addListener(stillMarker, "dragend", function() {           
             map.removeOverlay(newGraphic);
             gerarArea()            
           });
-        
-	    map.addOverlay(stillMarker);
-	    timeOutRender(); 	    	
+    	
+    	var infoTabs = [
+    	                new GInfoWindowTab("Tab #1", "This is tab #1 content"),
+    	                new GInfoWindowTab("Tab #2", "This is tab #2 content")
+    	              ];
+    	GEvent.addListener(stillMarker, "click", function() {           
+    		//stillMarker.openInfoWindowTabsHtml(document.getElementById("editDialog").innerHTML);         
+    		stillMarker.openInfoWindowTabsHtml(infoTabs);
+          });
+    	
+    	
+	    map.addOverlay(stillMarker);   
+	    stillMarker.openInfoWindowHtml(infoTabs);
+	    
+	    timeOutRender();
+    	
  	}
     
     
     function load() {
-    	map = new GMap2(document.getElementById("map_canvas"));
+    	map = new GMap2(document.getElementById("map_canvas"), {draggableCursor: 'crosshair', draggingCursor: 'pointer'});
 		map.setCenter(new GLatLng(-3.832997, -38.504215), 13);
 		map.setUIToDefault();
-
-		GEvent.addListener(map, "click", markRunningPoint);			
 		
+		mapClickListener = GEvent.addListener(map, "click", markRunningPoint);
     }
     
     
