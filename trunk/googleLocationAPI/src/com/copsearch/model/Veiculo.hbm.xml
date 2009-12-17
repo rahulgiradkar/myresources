@@ -5,7 +5,8 @@
 <hibernate-mapping>    
    <query name="com.copsearch.model.Veiculo.buscaAll">	
 	select v
-	from com.copsearch.model.Veiculo v	
+	from com.copsearch.model.Veiculo v
+	where v.localizacao.id = 1
     </query>  
-        
+    <!-- where v.localizacao.id = 1	 -->    
 </hibernate-mapping>
