@@ -1,0 +1,9 @@
+
+	<navigation-rule>
+		<navigation-case>			
+			<from-outcome>$stringUtils.unCapitalizeFirstLetter(${data.crud.name})</from-outcome>
+			<to-view-id>/pages/${stringUtils.unCapitalizeFirstLetter(${data.crud.name})}.jspx</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+

@@ -1,0 +1,122 @@
+package ${data.config.mainPackage}.${data.bundle.get('package.base')}.${data.bundle.get('package.mvc.model')}.${data.bundle.get('package.mvc.model.dao')}.${data.bundle.get('package.mvc.model.dao.generico')};
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.util.Map;
+import java.util.ResourceBundle;
+
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
+import javax.persistence.EntityManager;
+import javax.persistence.LockModeType;
+import javax.persistence.PersistenceContext;
+import javax.servlet.ServletContext;
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletResponse;
+
+import org.springframework.orm.jpa.support.JpaDaoSupport;
+
+import ${data.config.mainPackage}.${data.bundle.get('package.base')}.${data.bundle.get('package.mvc.model')}.${data.bundle.get('package.mvc.model.exceptions')}.${stringUtils.normalizeClassName(${data.config.appName})}Exception;
+
+/**
+ *
+ * @author ${data.bundle.get('generator.name')}
+ */
+
+public abstract class GenericDAO<T> extends JpaDaoSupport {
+
+	FacesContext context;
+	HttpServletResponse response;
+	ExternalContext ec;
+	InputStream reportStream;
+	ServletOutputStream servletOutputStream;
+
+	public String getRealPath(String path, String fileName){
+
+		context = FacesContext.getCurrentInstance();
+
+		ServletContext servletContext = (ServletContext)context.getExternalContext().getContext();
+		String realPath = servletContext.getRealPath(path);
+		String fullPath = realPath + "/" + fileName;
+		return fullPath;
+	}
+
+	@PersistenceContext
+	public final void setJpaEntityManager(EntityManager entityManager) {
+		setEntityManager(entityManager);
+	}
+
+	protected abstract Class<T> getClasseEntidade();
+	ResourceBundle rb = ResourceBundle.getBundle("i18n.${data.config.appName}_pt");
+
+	protected static boolean isEmpty(Object parametro){
+		if (parametro == null || parametro.equals("")){
+			return true;
+		} else{
+			return false;
+		}
+	}
+
+	public static String concatenaQuerys( String consulta, String queryFinal ){		
+		if( queryFinal.trim().equals("") ){
+			return consulta;
+		}else{
+			return consulta + " where " + queryFinal;	
+		}		
+	}
+
+	public static String getAnd( boolean isFirst  ) {		
+		if( isFirst ){
+			return "";
+		}else{
+			return " and ";
+		}
+	}
+
+	public static String getOr( boolean isFirst  ) {		
+		if( isFirst ){
+			return "";
+		}else{
+			return " or ";
+		}
+	}
+
+	//Inserir
+	public void inserir(T entidade) throws ${stringUtils.normalizeClassName(${data.config.appName})}Exception{
+
+		try {
+			getJpaTemplate().persist(entidade);
+		} catch (Exception e) {
+			logger.fatal("::[DAO]-Erro Insert: ", e);
+		}
+	}
+
+	//${data.bundle.get('crud.method.delete')}
+	public void ${data.bundle.get('crud.method.delete')}(T entidade, int id) throws ${stringUtils.normalizeClassName(${data.config.appName})}Exception{
+
+		try {
+			getJpaTemplate().remove(getJpaTemplate().getReference(entidade.getClass(), id));
+		} catch (Exception e) {
+			logger.fatal("::[DAO]-Erro Delete: ", e);
+		}	
+	}
+
+	//Atualizar
+	public void atualizar(T entidade) throws ${stringUtils.normalizeClassName(${data.config.appName})}Exception{
+
+		try {
+			getJpaTemplate().merge(entidade);
+		} catch (Exception e) {
+			logger.fatal("::[DAO]-Erro Update: ", e);
+		}		
+	}
+
+	//Manter sessao
+	public void conectar(T entidade) {
+		getJpaTemplate().getEntityManager().lock(entidade, LockModeType.READ);
+	}
+
+}

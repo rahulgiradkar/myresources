@@ -1,0 +1,5 @@
+	public String $stringUtils.unCapitalizeFirstLetter(${data.crud.name})(){ //${data.crud.name} (don't change this comment)
+		return "$stringUtils.unCapitalizeFirstLetter(${data.crud.name})";
+	}
+
+	//Menu.add();

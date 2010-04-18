@@ -1,0 +1,70 @@
+package ${data.config.mainPackage}.${data.crud.moduleName}.${data.bundle.get('package.mvc.model')}.${data.bundle.get('package.mvc.model.dao')}.${data.bundle.get('package.mvc.report')};
+#set ($varClassName = $stringUtils.unCapitalizeFirstLetter(${data.crud.crudClass.name}))
+#set ($typeClassName = ${data.crud.crudClass.name})
+
+#set ($varCrudName = $stringUtils.unCapitalizeFirstLetter(${data.crud.name}))
+#set ($typeCrudName = ${data.crud.name})
+
+import javax.faces.application.FacesMessage;
+import java.util.ResourceBundle;
+import java.util.HashMap;
+import org.springframework.stereotype.Component;
+import ${data.crud.crudClass.fullName};
+import ${data.config.mainPackage}.${data.crud.moduleName}.${data.bundle.get('package.mvc.model')}.exceptions.${stringUtils.normalizeClassName(${data.config.appName})}Exception;
+import ${data.config.mainPackage}.${data.bundle.get('package.base')}.${data.bundle.get('package.mvc.model')}.${data.bundle.get('package.mvc.model.dao')}.${data.bundle.get('package.mvc.model.dao.generico')}.ReportGenericDAO;
+
+/**
+ *
+ * @author ${data.bundle.get('generator.name')}
+ */
+@Component("${varCrudName}DAO")
+public class ${typeCrudName}DAO extends ReportGenericDAO {
+
+	public static ResourceBundle rb =  ResourceBundle.getBundle("i18n.${data.config.appName}_pt");
+	private String REL_PATH_$stringUtils.capitalize(${typeCrudName}) = rb.getString("relatorio.template.path");
+	private String REL_PATH_CABECALHO = "cabecalhoRetrato.jasper";
+	private String relPath = "/reports/jasper/";
+
+	private HashMap<String, Object> params = null;
+
+	public void gerar${typeCrudName}(${typeClassName} ${varClassName}) throws ${stringUtils.normalizeClassName(${data.config.appName})}Exception {
+		params = new HashMap<String, Object>();
+
+		params.put("P_TITULO", "Relatório ${typeCrudName}");
+		params.put("P_BRASAO", super.getRealPath("/images/", "brasaoPB.jpg"));
+		params.put("P_CABECALHO", super.getRealPath(relPath, "cabecalho.jasper"));
+
+		try {
+			gerarRelatorioGenerico(REL_PATH_$stringUtils.capitalize(${typeCrudName}), params);
+		} catch (Exception e) {
+			throw new ${stringUtils.normalizeClassName(${data.config.appName})}Exception("::[" + getClass().getSimpleName(), e, FacesMessage.SEVERITY_FATAL);
+		}
+	}
+
+#foreach( $field in $data.crud.crudClass.fieldsInOrder )
+#set ($varFieldName = $stringUtils.capitalizeFirstLetter(${field.name}))
+#if(($field.getHtmlType().getType() == "html.type.combo") && ($field.getClassDataType() != "java.lang.Character") && ($field.getClassDataType() != "char"))
+
+	public List<javax.faces.model.SelectItem> popularCombo${varFieldName}() {
+		List<javax.faces.model.SelectItem> popularCombo${varFieldName} = new ArrayList<javax.faces.model.SelectItem>();
+		List<${field.classDataType}> resultadoCombo${varFieldName} = getJpaTemplate().find("FROM ${field.classDataType} obj");
+		
+		for(${field.classDataType} i : resultadoCombo${varFieldName}){			
+			popularCombo${varFieldName}.add(new javax.faces.model.SelectItem(i, i.getDescricao()));
+		}
+		return popularCombo${varFieldName};
+	}
+#elseif(($field.getHtmlType().getType() == "html.type.radio") && ($field.getClassDataType() != "java.lang.Character") && ($field.getClassDataType() != "char"))
+
+	public List<javax.faces.model.SelectItem> popularRadio${varFieldName}() {
+		List<javax.faces.model.SelectItem> popularRadio${varFieldName} = new ArrayList<javax.faces.model.SelectItem>();
+		List<${field.classDataType}> resultadoRadio${varFieldName} = getJpaTemplate().find("FROM ${field.classDataType} obj");
+		
+		for(${field.classDataType} i : resultadoRadio${varFieldName}){			
+			popularRadio${varFieldName}.add(new javax.faces.model.SelectItem(i, i.getDescricao()));
+		}
+		return popularRadio${varFieldName};
+	}
+#end
+#end
+}

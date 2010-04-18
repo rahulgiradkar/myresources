@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="iso-8859-1" ?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0"
+          xmlns="http://www.w3.org/1999/xhtml"
+          xmlns:ui="http://java.sun.com/jsf/facelets"
+          xmlns:h="http://java.sun.com/jsf/html"
+          xmlns:f="http://java.sun.com/jsf/core"
+          xmlns:c="http://java.sun.com/jstl/core"
+          xmlns:a4j="http://richfaces.org/a4j"
+          xmlns:rich="http://richfaces.org/rich"
+	  xmlns:easy="http://easyfaces.com.br/easyfaces">
+#set ($varClassName = $stringUtils.unCapitalizeFirstLetter(${data.crud.crudClass.name}))
+#set ($typeClassName = ${data.crud.crudClass.name})
+
+#set ($varCrudName = $stringUtils.unCapitalizeFirstLetter(${data.crud.name}))
+#set ($typeCrudName = ${data.crud.name})
+<f:view>
+		<!-- ModalCadastro:: Cadastro de $typeCrudName -->
+		<rich:modalPanel id="cad${typeCrudName}" autosized="true" >
+		<a4j:keepAlive beanName="${varCrudName}Bean"/>
+	            <f:facet name="header">
+	                <h:panelGroup style="align:right">
+						<h:outputLabel value="#{msg['label.panel.create']} #{msg['${varCrudName}.tituloPagina']}"/>
+	                </h:panelGroup>
+	            </f:facet>
+
+				<f:facet name="controls">
+				<h:panelGroup>
+					<a4j:commandButton id="intX" image="../images/sesace/close.jpg">
+						<rich:componentControl for="cad${typeCrudName}" attachTo="intX" operation="hide" event="onclick"/>
+					</a4j:commandButton>
+				</h:panelGroup>
+				</f:facet>
+
+				<h:form id="formCadastro${typeCrudName}" >
+#set($i = 0)
+#foreach( $field in $data.crud.crudClass.getFieldsInOrderByLocation('html.field.location.insert','html.field.location.edit') )
+#**##if($field.getHtmlType().getType() != "html.type.hidden")
+#*	  *##set($i = $i + 1)
+##
+#parse("crud/fieldCreate.vm")
+#end
+#end
+				<h:panelGrid border="0" columns="2">
+				<a4j:region immediate="true">
+					<h:commandButton action="#{${varCrudName}Bean.${data.bundle.get('crud.method.save')}}" value="#{msg['button.save']}" title="#{msg['button.save']}" styleClass="buttons" />
+					<a4j:commandButton action="#{${varCrudName}Bean.${data.bundle.get('crud.method.clearForm')}}" reRender="formCadastro${typeCrudName}" value="#{msg['button.clean']}" title="#{msg['button.clean']}" styleClass="buttons" />
+				</a4j:region>
+				</h:panelGrid>                    
+			</h:form>
+			<!-- [fim] form cadastro -->
+
+        </rich:modalPanel> 
+	</f:view>
+</jsp:root>

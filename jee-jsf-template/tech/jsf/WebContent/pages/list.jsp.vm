@@ -1,0 +1,168 @@
+<%@ include file="/jsp/common/taglibs.jsp"%>
+<%@ taglib uri="http://struts.apache.org/tags-bean" prefix="bean" %>
+<%@ taglib uri="http://struts.apache.org/tags-html" prefix="html" %>
+<%@ taglib uri="http://struts.apache.org/tags-logic" prefix="logic" %>
+
+<html>
+<head>
+<script>	
+	function ${data.bundle.get('crud.method.search')}() {
+		document.$stringUtils.unCapitalizeFirstLetter(${data.crud.crudClass.name})Form.#**#method.value = '${data.bundle.get('crud.method.search')}';
+		document.$stringUtils.unCapitalizeFirstLetter(${data.crud.crudClass.name})Form.#**#submit();
+	}
+	function ${data.bundle.get('crud.action.method.formCreate')}() {
+		document.$stringUtils.unCapitalizeFirstLetter(${data.crud.crudClass.name})Form.#**#method.value = '${data.bundle.get('crud.action.method.formCreate')}';
+		document.$stringUtils.unCapitalizeFirstLetter(${data.crud.crudClass.name})Form.#**#submit();
+	}
+	function ${data.bundle.get('crud.action.method.formEdit')}(${data.crud.crudClass.primaryCrudField.name}) {
+		document.location.href = '<c:url value="/jsp/${data.crud.moduleName}/${stringUtils.unCapitalizeFirstLetter(${data.crud.crudClass.name})}.do"/>?method=${data.bundle.get('crud.action.method.formEdit')}&${data.crud.crudClass.primaryCrudField.name}='+${data.crud.crudClass.primaryCrudField.name};
+	}
+	function ${data.bundle.get('crud.action.method.delete')}(${data.crud.crudClass.primaryCrudField.name}) {
+		if(confirm('<bean:message key="message.confirmDelete"/>')) {
+			document.location.href = '<c:url value="/jsp/${data.crud.moduleName}/${stringUtils.unCapitalizeFirstLetter(${data.crud.crudClass.name})}.do"/>?method=${data.bundle.get('crud.action.method.delete')}&${data.crud.crudClass.primaryCrudField.name}='+${data.crud.crudClass.primaryCrudField.name};
+		}
+	}
+</script>
+</head>
+<body>
+	<html:form method="post" action="/jsp/${data.crud.moduleName}/$stringUtils.unCapitalizeFirstLetter(${data.crud.crudClass.name})#**#.do">			
+	<input type="hidden" id="method" name="method" value=""/>
+	<input type="hidden" id="${data.crud.crudClass.primaryCrudField.name}" name="${data.crud.crudClass.primaryCrudField.name}"  value=""/>	
+
+	<table width="598" border="0" cellspacing="0" cellpadding="0">
+#set($i = 0)
+#foreach( $field in $data.crud.crudClass.fieldsInOrder )
+#**##if($field.getHtmlType().getType() != "html.type.hidden" && $field.getHtmlType().getType() != "html.type.file_hd" && $field.getHtmlType().getType() != "html.type.file_db" && $field.getHtmlType().getType() != "html.type.image_hd" && $field.getHtmlType().getType() != "html.type.image_db")
+#*	  *##set($i = $i + 1)
+#*	  *##* LL_1C - uma coluna, campo na frente do nome *#
+#*	  *##if($data.crud.getHtmlLayout().toString() == "LL_1C")
+			<tr align="left" valign="top">
+				<td height="10">
+					<span class="texto1"><bean:message key="$stringUtils.unCapitalizeFirstLetter(${data.crud.crudClass.name})Form.${field.name}"/>: </span>
+					#parse("crud/fieldSearch.vm")
+				</td>
+			</tr>	
+			<tr>
+				<td width="140" height="10"></td>
+			</tr>		
+##
+#*	  *##* LL_2C - uma coluna, campo em baixo do nome *#
+#*	  *##elseif($data.crud.getHtmlLayout().toString() == "LL_2C")
+			<tr align="left" valign="top">
+				<td height="10">
+					<span class="texto1"><bean:message key="$stringUtils.unCapitalizeFirstLetter(${data.crud.crudClass.name})Form.${field.name}"/>:</span>
+					<br/>
+					#parse("crud/fieldSearch.vm")
+				</td>
+			</tr>
+			<tr>
+				<td width="140" height="10"></td>
+			</tr>		
+##
+#*	  *##* LT_1C - duas colunas, campo na frente do nome *#
+#*	  *##elseif($data.crud.getHtmlLayout().toString() == "LT_1C")
+			#if($i % 2 > 0)
+			<tr align="left" valign="top">
+			#end
+##
+			<td height="10">
+				<span class="texto1"><bean:message key="$stringUtils.unCapitalizeFirstLetter(${data.crud.crudClass.name})Form.${field.name}"/>: </span>
+				#parse("crud/fieldSearch.vm")
+			</td>
+##
+			#if($i % 2 == 0)
+			</tr>
+			#end
+##
+#*	  *##* LT_2C - duas colunas, campo em baixo do nome *#
+#*	  *##elseif($data.crud.getHtmlLayout().toString() == "LT_2C")
+			#if($i % 2 > 0)
+			<tr align="left" valign="top">
+			#end
+##
+			<td height="10">
+				<span class="texto1"><bean:message key="$stringUtils.unCapitalizeFirstLetter(${data.crud.crudClass.name})Form.${field.name}"/>:</span>
+				<br/>
+				#parse("crud/fieldSearch.vm")
+			</td>
+##
+			#if($i % 2 == 0)
+			</tr>
+			#end
+#*	  *##end
+#**##end
+#end
+##
+#if($data.crud.getHtmlLayout().toString() == "LT_2C" || $data.crud.getHtmlLayout().toString() == "LT_1C")
+#*	  *##if($i % 2 > 0)
+				<td height="10"></td>
+			</tr>
+#*	  *##end
+#end
+			<tr align="left" valign="top">
+				<td height="10" colspan="4">
+					<input type="button" name="btnSearch" value="<bean:message key="button.search"/>" onclick="${data.bundle.get('crud.method.search')}();" class="button1"/>
+				</td>			
+			</tr>
+	</table>	
+	
+	<table width="97%" border="0" cellspacing="0" cellpadding="0">
+		<tr>
+			<td width="140" height="10"></td>
+		</tr>	
+		<tr>
+			<td width="140" height="10"></td>
+		</tr>	
+		<tr align="left" valign="top">
+			<td height="10"><font class="texto4"><bean:message key="${stringUtils.unCapitalizeFirstLetter(${data.crud.crudClass.name})}Form.listOf"/></font></td>
+		</tr>
+		<tr><td>
+			<display:table name="sessionScope.list${data.crud.crudClass.name}" id="$stringUtils.unCapitalizeFirstLetter(${data.crud.crudClass.name})" htmlId="$stringUtils.unCapitalizeFirstLetter(${data.crud.crudClass.name})" pagesize="10" sort="list" style="width:100%" export="false">		
+#foreach( $field in $data.crud.crudClass.fieldsInOrder )
+#if($field.getHtmlType().getType() == "html.type.file_hd")
+			    <display:column style="text-align:center" sortable="false" titleKey="$stringUtils.unCapitalizeFirstLetter(${data.crud.crudClass.name})Form.${field.name}">
+					<logic:notEmpty name="$stringUtils.unCapitalizeFirstLetter(${data.crud.crudClass.name})" property="${field.name}">
+						<input type="button" value='<bean:message key="button.grid.file"/>' onclick="window.open('<%=request.getContextPath()%>/upload/$stringUtils.unCapitalizeFirstLetter(${data.crud.crudClass.name})/<bean:write name="$stringUtils.unCapitalizeFirstLetter(${data.crud.crudClass.name})" property="${field.name}"/>', 'arquivo');" class="button1"/>
+					</logic:notEmpty>
+			    </display:column>
+##
+#elseif($field.getHtmlType().getType() == "html.type.file_db")
+			    <display:column style="text-align:center" sortable="false" titleKey="$stringUtils.unCapitalizeFirstLetter(${data.crud.crudClass.name})Form.${field.name}">
+					<logic:notEmpty name="$stringUtils.unCapitalizeFirstLetter(${data.crud.crudClass.name})" property="${field.name}">
+						<input type="button" value='<bean:message key="button.grid.file"/>' onclick="window.open('<%=request.getContextPath()%>/jsp/${data.crud.moduleName}/$stringUtils.unCapitalizeFirstLetter(${data.crud.crudClass.name})#**#.fdo?method=${data.bundle.get('crud.action.method.loadFile')}$stringUtils.capitalizeFirstLetter(${field.name})&${data.crud.crudClass.primaryCrudField.name}=<bean:write name="$stringUtils.unCapitalizeFirstLetter(${data.crud.crudClass.name})" property="${data.crud.crudClass.primaryCrudField.name}"/>', 'arquivo');" class="button1"/>
+					</logic:notEmpty>
+			    </display:column>
+##
+#elseif($field.getHtmlType().getType() == "html.type.image_hd")
+			    <display:column style="text-align:center" sortable="false" titleKey="$stringUtils.unCapitalizeFirstLetter(${data.crud.crudClass.name})Form.${field.name}">
+					<logic:notEmpty name="$stringUtils.unCapitalizeFirstLetter(${data.crud.crudClass.name})" property="${field.name}">
+						<input type="button" value='<bean:message key="button.grid.image"/>' onclick="window.open('<%=request.getContextPath()%>/upload/$stringUtils.unCapitalizeFirstLetter(${data.crud.crudClass.name})/<bean:write name="$stringUtils.unCapitalizeFirstLetter(${data.crud.crudClass.name})" property="${field.name}"/>', 'imagem');" class="button1"/>
+					</logic:notEmpty>
+			    </display:column>
+##
+#elseif($field.getHtmlType().getType() == "html.type.image_db")
+			    <display:column style="text-align:center" sortable="false" titleKey="$stringUtils.unCapitalizeFirstLetter(${data.crud.crudClass.name})Form.${field.name}">
+					<logic:notEmpty name="$stringUtils.unCapitalizeFirstLetter(${data.crud.crudClass.name})" property="${field.name}">
+						<input type="button" value='<bean:message key="button.grid.image"/>' onclick="window.open('<%=request.getContextPath()%>/jsp/${data.crud.moduleName}/$stringUtils.unCapitalizeFirstLetter(${data.crud.crudClass.name})#**#.fdo?method=${data.bundle.get('crud.action.method.loadFile')}$stringUtils.capitalizeFirstLetter(${field.name})&${data.crud.crudClass.primaryCrudField.name}=<bean:write name="$stringUtils.unCapitalizeFirstLetter(${data.crud.crudClass.name})" property="${data.crud.crudClass.primaryCrudField.name}"/>', 'imagem');" class="button1"/>
+					</logic:notEmpty>
+			    </display:column>		    
+#else
+			    <display:column style="text-align:center" sortable="true" property="${field.name}" titleKey="$stringUtils.unCapitalizeFirstLetter(${data.crud.crudClass.name})Form.${field.name}"/>
+#end
+#end
+			
+				<display:column titleKey="grid.title.edit" style="text-align:center" media="html">
+					<input type="button" value='<bean:message key="button.grid.edit"/>' onclick='${data.bundle.get('crud.action.method.formEdit')}(<bean:write name="$stringUtils.unCapitalizeFirstLetter(${data.crud.crudClass.name})" property="${data.crud.crudClass.primaryCrudField.name}"/>);' class="button1"/>
+				</display:column>
+	
+			    <display:column titleKey="grid.title.delete" style="text-align:center" media="html">
+					<input type="button" value='<bean:message key="button.grid.delete"/>' onclick="${data.bundle.get('crud.action.method.delete')}('<bean:write name="$stringUtils.unCapitalizeFirstLetter(${data.crud.crudClass.name})" property="${data.crud.crudClass.primaryCrudField.name}"/>');" class="button1"/>
+				</display:column>
+			</display:table>
+			<script type="text/javascript">highlightTableRows("$stringUtils.unCapitalizeFirstLetter(${data.crud.crudClass.name})");</script>			
+		</td></tr>	
+	</table>
+
+	</html:form>		
+</body>
+</html>

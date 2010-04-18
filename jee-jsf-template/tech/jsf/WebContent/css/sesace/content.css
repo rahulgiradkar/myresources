@@ -1,0 +1,108 @@
+/* folha de estilo do conteudo */
+
+.principal{
+	PADDING-TOP: 200px;
+    background-repeat:no-repeat;
+	background-position:center;
+}
+
+.buttons{
+	border:1px solid #c0c0c0;
+	font-family:Verdana, Arial, Helvetica, sans-serif;
+	font-size:12px;
+	height:18px;
+	width:70px;
+	padding:0px;
+	margin: 1px;	
+	color: #134f93;
+	cursor: hand;	
+}
+
+.buttonSearch{
+	border:1px solid #c0c0c0;
+	font-family:Verdana, Arial, Helvetica, sans-serif;
+	font-size:20pt;
+	height:18px;
+	width:100px;
+	padding:0px;
+	margin: 1px;	
+	color: #134f93;
+	cursor: hand;
+}
+
+.caixaTexto{
+	text-transform: uppercase;
+}
+
+.input{
+	text-transform: uppercase;
+	width:320px;
+}
+
+.inputsmall{
+	text-transform: uppercase;
+	width:130px;
+}
+
+.inputmask{
+	width:130px;
+}
+
+.TextoArea{
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 8pt; 
+	font-weight:normal;
+	color:#000000;
+	text-transform: uppercase;
+}
+.combo50{
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 8pt;
+	font-weight:normal;
+	color:#000000;
+	width:100px;
+}
+
+.combo150{
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 8pt;
+	font-weight:normal;
+	color:#000000;
+	width:150px;
+}
+
+.combo315{
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 8pt;
+	font-weight:normal;
+	color:#000000;
+	width:315px;
+}
+
+a:link, a:visited{
+	color:#000000;
+	font-size:11px;
+	font-family:Verdana, Arial, Helvetica, sans-serif;
+	text-decoration:none;   
+}
+
+.campoObrigatorio{
+	font-style: italic;
+	color: red;
+}
+
+/* CSS componentes Richfaces */
+
+.rich-messages-marker img{
+	padding-right: 7px; 
+}
+
+.rich-messages-label{
+	color: #000000;
+	font-weight: bold;
+}
+
+.headerPanel{
+	height: 24px;
+}
+

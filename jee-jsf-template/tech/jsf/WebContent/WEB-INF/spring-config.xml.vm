@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context-2.5.xsd
+        http://www.springframework.org/schema/tx
+        http://www.springframework.org/schema/tx/spring-tx-2.5.xsd">
+
+   #set($driver = "${data.config.getTech('Database Type')}-driver")
+   #set($url = "${data.config.getTech('Database Type')}-url")
+	<!-- Data Source Postgres -->
+    <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
+        <property name="driverClass" value="${data.getConfigForDatabaseType($driver)}" />
+	#set($dialect = "${data.config.getTech('Database Type')}-hibernateDialect")
+	<property name="jdbcUrl" value="${data.getConfigForDatabaseType($url)}" />
+        <property name="user" value="${data.config.DbUsername}" />
+        <property name="password" value="${data.config.dbPassword}" />
+        <property name="properties">
+            <props>
+                <prop key="c3p0.acquire_increment">5</prop>
+                <prop key="c3p0.idle_test_period">100</prop>
+                <prop key="c3p0.max_size">100</prop>
+                <prop key="c3p0.max_statements">0</prop>
+                <prop key="c3p0.min_size">10</prop>
+                <prop key="user">${data.config.DbUsername}</prop>
+                <prop key="password">${data.config.dbPassword}</prop>
+                <prop key="hibernate.cache.provider_class">org.hibernate.cache.EhCacheProvider</prop>
+                <prop key="hibernate.cache.use_query_cache">false</prop>
+            </props>
+        </property>
+    </bean>
+
+	<!-- JPA Configuration -->
+    <bean id="entityManagerFactory"
+        class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+        <property name="dataSource" ref="dataSource" />
+        <property name="jpaDialect">
+            <bean class="org.springframework.orm.jpa.vendor.HibernateJpaDialect">
+            </bean>
+        </property>
+        <property name="jpaVendorAdapter">
+            <bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
+                <property name="database" value="POSTGRESQL" />
+                <property name="showSql" value="false" />
+                <!-- <property name="generateDdl" value="true"/> -->
+                <property name="databasePlatform" value="${data.getConfigForDatabaseType($dialect)}"/>
+            </bean>
+        </property>
+    </bean>
+
+	<!-- Transaction Manager Configuration org.springframework.orm.jpa.JpaTransactionManager-->
+    <bean id="txManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+        <property name="entityManagerFactory" ref="entityManagerFactory" />
+    </bean>
+
+	<!-- Usando annotations para controle de transacoes -->
+    <tx:annotation-driven transaction-manager="txManager" />
+    <context:component-scan base-package="${data.config.mainPackage}" />
+</beans>

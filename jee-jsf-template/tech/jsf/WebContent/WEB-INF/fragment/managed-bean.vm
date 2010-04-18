@@ -1,0 +1,10 @@
+
+	<managed-bean>
+		<managed-bean-name>$stringUtils.unCapitalizeFirstLetter(${data.crud.name})Bean</managed-bean-name>
+		<managed-bean-class>${data.config.mainPackage}.${data.crud.moduleName}.${data.bundle.get('package.mvc.view')}.${data.crud.name}Bean</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+		<managed-property>
+			<property-name>$stringUtils.unCapitalizeFirstLetter(${data.crud.name})Business</property-name>
+			<value>#{$stringUtils.unCapitalizeFirstLetter(${data.crud.name})Business}</value>
+		</managed-property>
+	</managed-bean>

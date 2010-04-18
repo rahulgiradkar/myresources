@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="iso-8859-1" ?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0"
+          xmlns="http://www.w3.org/1999/xhtml"
+          xmlns:ui="http://java.sun.com/jsf/facelets"
+          xmlns:h="http://java.sun.com/jsf/html"
+          xmlns:f="http://java.sun.com/jsf/core"
+          xmlns:c="http://java.sun.com/jstl/core"
+          xmlns:a4j="http://richfaces.org/a4j"
+          xmlns:rich="http://richfaces.org/rich"
+	  xmlns:easy="http://easyfaces.com.br/easyfaces">
+#set ($varClassName = $stringUtils.unCapitalizeFirstLetter(${data.crud.crudClass.name}))
+#set ($typeClassName = ${data.crud.crudClass.name})
+
+#set ($varCrudName = $stringUtils.unCapitalizeFirstLetter(${data.crud.name}))
+#set ($typeCrudName = ${data.crud.name})
+<f:view>
+		<!-- ModalFind:: Pesquisar $typeCrudName -->
+		<rich:modalPanel id="find${typeCrudName}" autosized="true" >
+		<a4j:keepAlive beanName="${varCrudName}Bean"/>
+	            <f:facet name="header">
+	                <h:panelGroup style="align:right">
+						<h:outputLabel value="#{msg['label.panel.search']} #{msg['${varCrudName}.tituloPagina']}"/>
+	                </h:panelGroup>
+	            </f:facet>
+
+				<f:facet name="controls">
+				<h:panelGroup>
+					<a4j:commandButton id="intX" image="../images/sesace/close.jpg">
+						<rich:componentControl for="find${typeCrudName}" attachTo="intX" operation="hide" event="onclick"/>
+					</a4j:commandButton>
+				</h:panelGroup>
+				</f:facet>
+
+				<h:form id="formBusca${typeCrudName}" >
+#set($i = 0)
+#foreach( $field in $data.crud.crudClass.getFieldsInOrderByLocation('html.field.location.search') )
+#**##if($field.getHtmlType().getType() != "html.type.hidden")
+#*	  *##set($i = $i + 1)
+##
+#parse("crud/fieldSearch.vm")
+#end
+#end
+				<h:panelGrid border="0" columns="2">
+				<a4j:region immediate="true">
+					<a4j:commandButton action="#{${varCrudName}Bean.${data.bundle.get('crud.method.search')}}" reRender="grid" value="#{msg['button.execSearch']}" title="#{msg['button.execSearch']}" styleClass="buttonSearch"/>
+					<a4j:commandButton action="#{${varCrudName}Bean.${data.bundle.get('crud.method.clearForm')}}" reRender="formBusca${typeCrudName}" value="#{msg['button.clean']}" title="#{msg['button.clean']}" styleClass="buttons"/>
+				</a4j:region>			
+				</h:panelGrid>   
+
+				</h:form>
+
+		<br/>
+
+            <!-- MENSAGENS -->
+            <div id="messages">
+                <rich:messages layout="list" showSummary="false" showDetail="true" style="background-color: #ffffff;" styleClass="align:center">
+                    <f:facet name="errorMarker" >
+                        <h:graphicImage value="../images/alerts/Error.png"/>   
+                    </f:facet>
+                    
+                    <f:facet name="infoMarker">
+                        <h:graphicImage value="/images/alerts/Info.png" />
+                    </f:facet>
+                    
+                    <f:facet name="warnMarker">
+                        <h:graphicImage value="../images/alerts/Warning.png" />   
+                    </f:facet>
+                    
+                    <f:facet name="fatalMarker">
+                        <h:graphicImage value="/images/alerts/AttentionSZ.png" />
+                    </f:facet>				
+                </rich:messages>
+                <rich:spacer width="10px"/>
+            </div>
+
+		<!-- [inicio] form resultado pesquisa -->
+		<rich:panel id="grid" >
+			<f:facet name="header">
+				<h:outputText value="#{msg['label.panel.searchResult']} #{msg['${varCrudName}.tituloPagina']}"/>
+			</f:facet>
+
+			<h:form id="formResultado" >
+
+			<h:panelGrid columns="1" width="750">
+				<rich:dataTable id="lista${typeCrudName}" width="100%" value="#{${varCrudName}Bean.${varCrudName}Lista}" var="var${typeCrudName}" align="center" rows="10" border="1">
+					<f:facet name="header">
+						<rich:columnGroup>
+#set($i = 0)
+#foreach( $field in $data.crud.crudClass.fieldsInOrder )
+#**##if($field.getHtmlType().getType() != "html.type.hidden" && $field.getHtmlType().getType() != "html.type.file_hd" && $field.getHtmlType().getType() != "html.type.file_db" && $field.getHtmlType().getType() != "html.type.image_hd" && $field.getHtmlType().getType() != "html.type.image_db" && $field.getClassDataType() != "java.util.Set")
+#*	  *##set($i = $i + 1)
+							<rich:column>
+								<h:outputText value="#{msg['${varCrudName}.${field.name}']}" />
+							</rich:column>
+#end
+#end				
+							<rich:column>
+								<h:outputText value="#{msg['button.select']}"/>
+							</rich:column>
+						</rich:columnGroup>
+					</f:facet>
+
+#foreach( $field in $data.crud.crudClass.fieldsInOrder )
+#**##if($field.getClassDataType() == "java.util.Set")
+#*	  *##set ($masterName = ${stringUtils.sub(${field.name},"Entities","")})
+#end
+#end
+
+#set($i = 0)
+#foreach( $field in $data.crud.crudClass.fieldsInOrder )
+#**##if($field.getHtmlType().getType() != "html.type.hidden" && $field.getHtmlType().getType() != "html.type.file_hd" && $field.getHtmlType().getType() != "html.type.file_db" && $field.getHtmlType().getType() != "html.type.image_hd" && $field.getHtmlType().getType() != "html.type.image_db" && $field.getClassDataType() != "java.util.Set")
+#*	  *##set($i = $i + 1)
+
+					<rich:column>
+						<a4j:commandLink value="#{var${typeCrudName}.${field.name}}" oncomplete="#{rich:component('find${typeCrudName}')}.hide()" title="#{msg['button.select']}">
+							<a4j:support event="onclick" reRender="${varCrudName}Fk">
+								<f:setPropertyActionListener target="#{${masterName}Bean.${masterName}Entity.${varCrudName}Fk}" value="#{var${typeCrudName}}" />
+							</a4j:support>
+						</a4j:commandLink>
+					</rich:column>
+#end
+#end
+					<rich:column style="width:5%; align:center">
+						<a4j:commandLink oncomplete="#{rich:component('find${typeCrudName}')}.hide()" value="[Selecionar]" title="#{msg['button.select']}">
+							<a4j:support event="onclick" reRender="${varCrudName}Fk">
+								<f:setPropertyActionListener target="#{${masterName}Bean.${masterName}Entity.${varCrudName}Fk}" value="#{var${typeCrudName}}" />
+							</a4j:support>
+						</a4j:commandLink>
+					</rich:column>
+
+				</rich:dataTable>
+				<rich:spacer height="5" />
+				<rich:datascroller for="lista${typeCrudName}" maxPages="20" />  
+	</h:panelGrid>
+
+
+            </h:form>
+				<!-- [fim] form dos botoes -->
+			</rich:panel>
+
+        </rich:modalPanel> 
+	</f:view>
+</jsp:root>

@@ -1,0 +1,115 @@
+package ${data.config.mainPackage}.${data.bundle.get('package.base')}.${data.bundle.get('package.mvc.view')};
+
+import i18n.MsgUtil;
+
+import javax.faces.context.FacesContext;
+import ${data.config.mainPackage}.${data.bundle.get('package.base')}.${data.bundle.get('package.mvc.business')}.UsuarioBusiness;
+import ${data.config.mainPackage}.${data.bundle.get('package.base')}.${data.bundle.get('package.mvc.model')}.${data.bundle.get('package.mvc.model.entity')}.UsuarioEntity;
+
+import br.gov.sesa.base.FabricaBase;
+import br.gov.sesa.base.biblioteca.excecoes.SesaException;
+import br.gov.sesa.base.seguranca.Seguranca;
+import br.gov.sesa.base.seguranca.modelo.UsuarioVO;
+
+/**
+ * @author NUINF GENERATOR
+ *
+ */
+public class UsuarioBean {
+
+	private UsuarioEntity usuarioEntity = new UsuarioEntity();
+	private UsuarioBusiness usuarioBusiness = new UsuarioBusiness();
+	private UsuarioVO usuarioVO = new UsuarioVO();
+
+	private int idSistema = 8;
+
+	private boolean usuarioLogado;
+
+	public UsuarioBean() {
+		// TODO Auto-generated constructor stub
+	}
+
+	public UsuarioEntity getUsuarioEntity() {
+		return usuarioEntity;
+	}
+
+	public void setUsuarioEntity(UsuarioEntity usuarioEntity) {
+		this.usuarioEntity = usuarioEntity;
+	}
+
+	public UsuarioBusiness getUsuarioBusiness() {
+		return usuarioBusiness;
+	}
+
+	public void setUsuarioBusiness(UsuarioBusiness usuarioBusiness) {
+		this.usuarioBusiness = usuarioBusiness;
+	}
+
+	public UsuarioVO getUsuarioVO() {
+		return usuarioVO;
+	}
+
+	public void setUsuarioVO(UsuarioVO usuarioVO) {
+		this.usuarioVO = usuarioVO;
+	}
+
+	public boolean isUsuarioLogado() {
+		return usuarioLogado;
+	}
+
+	public void setUsuarioLogado(boolean usuarioLogado) {
+		this.usuarioLogado = usuarioLogado;
+	}
+
+	public int getIdSistema() {
+		return idSistema;
+	}
+
+	public void setIdSistema(int idSistema) {
+		this.idSistema = idSistema;
+	}
+
+	public String validarUsuario(){
+
+		String msg = "";
+
+		try {
+
+			this.validarUsuarioSistemaBase(usuarioEntity.getNome(), usuarioEntity.getSenha(), idSistema);
+
+			if(usuarioVO.getIdUsuario() == 0){
+				this.usuarioLogado = false;
+				msg = "AcessoBloqueado";
+			}else{
+				this.usuarioLogado = true;
+				msg = "AcessoLiberado";
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return msg;
+	}
+
+	public UsuarioVO validarUsuarioSistemaBase(String usuario, String senha, int idSistema) throws Exception{
+
+		try {
+			Seguranca seguranca = FabricaBase.getSeguranca();
+            usuarioVO = seguranca.validarUsuario(usuario, senha, idSistema);
+        } catch (SesaException e) {
+        	MsgUtil.addErrorMessage(e.getMensagemFormatada());
+        }
+
+		return usuarioVO;
+	}
+
+	public static UsuarioBean getUsuarioBean(FacesContext context){
+		return (UsuarioBean) context.getApplication().evaluateExpressionGet(context, "#{usuarioBean}", UsuarioBean.class);
+	}
+
+	public void clearForm() {
+		this.usuarioEntity = new UsuarioEntity();
+	}
+
+}

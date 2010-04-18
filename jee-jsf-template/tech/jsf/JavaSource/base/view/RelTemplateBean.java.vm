@@ -1,0 +1,131 @@
+package ${data.config.mainPackage}.${data.crud.moduleName}.${data.bundle.get('package.mvc.view')}.${data.bundle.get('package.mvc.report')};
+#set ($varCrudName = $stringUtils.unCapitalizeFirstLetter(${data.crud.name}))
+#set ($typeCrudName = ${data.crud.name})
+
+#set ($varClassName = $stringUtils.unCapitalizeFirstLetter(${data.crud.crudClass.name}))
+#set ($typeClassName = ${data.crud.crudClass.name})
+
+import i18n.MsgUtil;
+import ${data.crud.crudClass.fullName};
+import ${data.config.mainPackage}.${data.crud.moduleName}.${data.bundle.get('package.mvc.model')}.exceptions.${stringUtils.normalizeClassName(${data.config.appName})}Exception;
+import ${data.config.mainPackage}.${data.crud.moduleName}.${data.bundle.get('package.mvc.business')}.${data.bundle.get('package.mvc.report')}.${typeCrudName}Business;
+
+/**
+ *
+ * @author ${data.bundle.get('generator.name')}
+ */
+#set ($className = ${stringUtils.capitalizeFirstLetter(${stringUtils.sub(${typeCrudName},"Rel","")})})
+public class Rel${className}Bean {
+
+	MsgUtil msgUtil = new MsgUtil();
+
+	private ${typeClassName} ${varClassName};
+
+	//Camada de neg�cios
+	private ${typeCrudName}Business ${varCrudName}Business;
+
+	//Construtor
+	public ${typeCrudName}Bean() {
+
+		if (this.${varClassName} == null) {
+			this.${varClassName} = new ${typeClassName}();
+		}
+	}
+
+	//M�todo que far� a limpeza do form
+	public void limparForm() {
+		this.${varClassName} = new ${typeClassName}();
+	}
+
+	/** [In�cio] Getters and Setters **/
+	public ${typeClassName} get${typeClassName}() {
+		return ${varClassName};
+	}
+
+	public void set${typeClassName}(${typeClassName} ${varClassName}) {
+		this.${varClassName} = ${varClassName};
+	}
+
+	public ${typeCrudName}Business get${typeCrudName}Business() {
+		return ${varCrudName}Business;
+	}
+
+	public void set${typeCrudName}Business(${typeCrudName}Business ${varCrudName}Business) {
+		this.${varCrudName}Business = ${varCrudName}Business;
+	}
+
+	/** [Fim] Getters and Setters **/
+
+#foreach( $field in $data.crud.crudClass.fieldsInOrder )
+#set ($varFieldName = $stringUtils.capitalizeFirstLetter(${field.name}))
+#if(($field.getHtmlType().getType() == "html.type.combo") && (($field.getClassDataType() != "char") && ($field.getClassDataType() != "java.lang.Character")))
+	private static List<javax.faces.model.SelectItem> combo${varFieldName};
+
+	public List<javax.faces.model.SelectItem> getCombo${varFieldName}() {
+		if(combo${varFieldName} == null){
+			combo${varFieldName} = ${varCrudName}Business.popularCombo${varFieldName}();
+		}
+		return combo${varFieldName};
+	}
+
+	public void setCombo${varFieldName}(List<javax.faces.model.SelectItem> combo${varFieldName}) {
+		this.combo${varFieldName} = combo${varFieldName};
+	}
+#elseif(($field.getHtmlType().getType() == "html.type.combo") && (($field.getClassDataType() == "char") || ($field.getClassDataType() == "java.lang.Character")))
+
+	private static List<javax.faces.model.SelectItem> combo${varFieldName};
+
+	static {
+		combo${varFieldName} = new java.util.ArrayList<javax.faces.model.SelectItem>(3);
+		combo${varFieldName}.add(new javax.faces.model.SelectItem("L", "Laguna"));
+		combo${varFieldName}.add(new javax.faces.model.SelectItem("B", "BlueSky"));
+	}
+
+	public List<javax.faces.model.SelectItem> getCombo${varFieldName}() {
+		return combo${varFieldName};
+	}
+
+	public void setCombo${varFieldName}(List<javax.faces.model.SelectItem> combo${varFieldName}) {
+		this.combo${varFieldName} = combo${varFieldName};
+	}
+#elseif(($field.getHtmlType().getType() == "html.type.radio") && (($field.getClassDataType() != "char") && ($field.getClassDataType() != "java.lang.Character")))
+	public List<javax.faces.model.SelectItem> getradio${varFieldName}() {
+		if(radio${varFieldName} == null){
+			radio${varFieldName} = ${varCrudName}Business.popularRadio${varFieldName}();
+		}
+		return radio${varFieldName};
+	}
+
+	public void setRadio${varFieldName}(List<javax.faces.model.SelectItem> radio${varFieldName}) {
+		this.radio${varFieldName} = radio${varFieldName};
+	}
+#elseif(($field.getHtmlType().getType() == "html.type.radio") && (($field.getClassDataType() == "char") || ($field.getClassDataType() == "java.lang.Character")))
+
+	private static List<javax.faces.model.SelectItem> radio${varFieldName};
+
+	static {
+		radio${varFieldName} = new java.util.ArrayList<javax.faces.model.SelectItem>(3);
+		radio${varFieldName}.add(new javax.faces.model.SelectItem("A", "Laguna"));
+		radio${varFieldName}.add(new javax.faces.model.SelectItem("B", "BlueSky"));
+	}
+
+	public List<javax.faces.model.SelectItem> getRadio${varFieldName}() {
+		return radio${varFieldName};
+	}
+
+	public void setRadio${varFieldName}(List<javax.faces.model.SelectItem> radio${varFieldName}) {
+		this.radio${varFieldName} = radio${varFieldName};
+	}
+#end
+#end
+
+	public String gerarRel${className}Bean() {
+		try {
+			${varCrudName}Business.gerar${typeCrudName}(${varClassName});	
+		} catch (${stringUtils.normalizeClassName(${data.config.appName})}Exception e) {
+			MsgUtil.addMessage(e);
+		}
+		return null;
+	}
+
+}

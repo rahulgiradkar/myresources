@@ -1,0 +1,141 @@
+#set ($varClassName = $stringUtils.unCapitalizeFirstLetter(${data.crud.crudClass.name}))
+#set ($typeClassName = ${data.crud.crudClass.name})
+
+#set ($varCrudName = $stringUtils.unCapitalizeFirstLetter(${data.crud.name}))
+#set ($typeCrudName = ${data.crud.name})
+
+#if((!$field.isPrimaryKey()) && ($field.getName() != "usuarioFk"))
+##
+<!-- Início Linha $i -->
+<h:panelGroup>
+<h:panelGrid columns="1" width="70%" border="0">
+	<h:outputLabel value="#{msg['${varCrudName}.${field.name}']}" for="${field.name}" />
+<h:panelGroup>
+##
+#if($field.getHtmlType().getType() == "html.type.textarea")
+	<h:inputTextarea id="${field.name}" label="#{msg['${varCrudName}.${field.name}']}" value="#{${varCrudName}Bean.${varClassName}.${field.name}}" cols="48" rows="5" required="${field.isRequired()}"/>
+#elseif($field.getHtmlType().getType() == "html.type.radio")
+	<h:selectOneRadio id="${field.name}" label="#{msg['${varCrudName}.${field.name}']}" value="#{${varCrudName}Bean.${varClassName}.${field.name}}" required="${field.isRequired()}" >
+		<f:selectItems value="#{${varCrudName}Bean.radio$stringUtils.capitalizeFirstLetter(${field.name})}" />
+	</h:selectOneRadio>
+#elseif(($field.getHtmlType().getType() == "html.type.combo"))
+<h:selectOneMenu id="${field.name}" label="#{msg['${varCrudName}.${field.name}']}" value="#{${varCrudName}Bean.${varClassName}.${field.name}}" styleClass="combo150" required="${field.isRequired()}" converter="converter.GenericConverter">
+	<f:selectItem itemLabel="[Selecione]" itemValue=""/>
+	<f:selectItems value="#{${varCrudName}Bean.combo$stringUtils.capitalizeFirstLetter(${field.name})}"/>
+</h:selectOneMenu>
+##
+#elseif($field.getHtmlType().getType() == "html.type.suggestionbox")
+#set ($fieldWithoutFk = ${stringUtils.capitalizeFirstLetter(${stringUtils.sub(${field.name},"Fk","")})})
+	<h:inputText id="${field.name}" value="" label="#{msg['${varCrudName}.${field.name}']}" styleClass="caixatexto" converter="converter.${fieldWithoutFk}Converter"/>
+	<rich:suggestionbox ajaxSingle="true" height="150" width="450" for="${field.name}" minChars="3" suggestionAction="#{${varCrudName}Bean.autoComplete$stringUtils.capitalizeFirstLetter(${field.name})}" var="var${fieldWithoutFk}" border="1" nothingLabel="Não foram encontrados registros" >
+		<h:column>
+			<h:outputText value="#{var${fieldWithoutFk}.nomeSeuAtributo}"/>
+		</h:column>
+	<a4j:region>
+	<a4j:support event="onselect" reRender="${field.name}">
+		<f:setPropertyActionListener target="#{${varCrudName}Bean.${varClassName}.${field.name}}" value="#{var${fieldWithoutFk}}"/> 
+	</a4j:support>
+	</rich:suggestionbox>
+	</a4j:region>
+##
+#elseif($field.getHtmlType().getType() == "html.type.modalcadfind")
+#set ($fieldWithoutFk = ${stringUtils.capitalizeFirstLetter(${stringUtils.sub(${field.name},"Fk","")})})
+
+<h:inputText id="${field.name}" label="#{msg['${varCrudName}.${field.name}']}" value="#{${varCrudName}Bean.${varClassName}.${field.name}}"	maxlength="100" styleClass="input" disabled="true" converter="converter.GenericConverter" />
+	<h:outputLink value="#" id="find${fieldWithoutFk}Link">
+		<h:graphicImage value="../images/sesace/27.jpg" width="15" style="border:0; padding-left: 5px;" title="Pesquisar #{msg['${varCrudName}.${field.name}']}" alt="Pesquisar ${fieldWithoutFk}"/>
+		<rich:componentControl for="find${fieldWithoutFk}" attachTo="find${fieldWithoutFk}Link" operation="show" event="onclick"/>
+	</h:outputLink>
+	<h:outputLink value="#" id="cad${fieldWithoutFk}Link">
+		<h:graphicImage value="../images/sesace/bt_incluir.gif" width="15" style="border:0; padding-left: 5px;" title="Cadastrar Novo" alt="Cadastrar ${fieldWithoutFk}"/>
+		<rich:componentControl for="cad${fieldWithoutFk}" attachTo="cad${fieldWithoutFk}Link" operation="show" event="onclick"/>
+	</h:outputLink>
+##
+#elseif($field.getHtmlType().getType() == "html.type.modalfind")
+#set ($fieldWithoutFk = ${stringUtils.capitalizeFirstLetter(${stringUtils.sub(${field.name},"Fk","")})})
+
+<h:inputText id="${field.name}" label="#{msg['${varCrudName}.${field.name}']}" value="#{${varCrudName}Bean.${varClassName}.${field.name}}"	maxlength="100" styleClass="input" disabled="true" converter="converter.GenericConverter" />
+	<h:outputLink value="#" id="find${fieldWithoutFk}Link">
+		<h:graphicImage value="../images/sesace/27.jpg" width="15" style="border:0; padding-left: 5px;" title="Pesquisar #{msg['${varCrudName}.${field.name}']}" alt="Pesquisar ${fieldWithoutFk}"/>
+		<rich:componentControl for="find${fieldWithoutFk}" attachTo="find${fieldWithoutFk}Link" operation="show" event="onclick"/>
+	</h:outputLink>
+##
+#elseif($field.getHtmlType().getType() == "html.type.modalcad")
+#set ($fieldWithoutFk = ${stringUtils.capitalizeFirstLetter(${stringUtils.sub(${field.name},"Fk","")})})
+<h:inputText id="${field.name}" label="#{msg['${varCrudName}.${field.name}']}" value="#{${varCrudName}Bean.${varClassName}.${field.name}}"	maxlength="100" styleClass="input" disabled="true" converter="converter.GenericConverter" />
+	<h:outputLink value="#" id="cad${fieldWithoutFk}Link">
+		<h:graphicImage value="../images/sesace/bt_incluir.gif" width="15" style="border:0; padding-left: 5px;" title="Cadastrar Novo" alt="Cadastrar ${fieldWithoutFk}"/>
+		<rich:componentControl for="cad${fieldWithoutFk}" attachTo="cad${fieldWithoutFk}Link" operation="show" event="onclick"/>
+	</h:outputLink>
+#
+<h:inputText id="${field.name}" label="#{msg['${varCrudName}.${field.name}']}" value="#{${varCrudName}Bean.${varClassName}.${field.name}}"	maxlength="100" styleClass="input" disabled="true" converter="converter.GenericConverter" />
+	<h:outputLink value="#" id="find${fieldWithoutFk}Link">
+		<h:graphicImage value="../images/sesace/27.jpg" width="15" style="border:0; padding-left: 5px;" title="Pesquisar #{msg['${varCrudName}.${field.name}']}" alt="Pesquisar ${fieldWithoutFk}"/>
+		<rich:componentControl for="find${fieldWithoutFk}" attachTo="find${fieldWithoutFk}Link" operation="show" event="onclick"/>
+	</h:outputLink>
+##
+
+
+#elseif($field.getHtmlType().getType() == "html.type.check")
+	<h:selectBooleanCheckbox id="${field.name}" label="#{msg['${varCrudName}.${field.name}']}" value="#{${varCrudName}Bean.${varClassName}.${field.name}}">
+	</h:selectBooleanCheckbox>
+#end
+##
+#if( ($field.getHtmlType().getType() == "html.type.text") && (($field.getHtmlType().getFieldStyle() == "input") || ($field.getHtmlType().getFieldStyle() == "inputsmall")))
+#if($field.getClassDataType() == "java.util.Date")
+	<rich:calendar id="${field.name}" label="#{msg['${varCrudName}.${field.name}']}" value="#{${varCrudName}Bean.${varClassName}.${field.name}}"     	enableManualInput="true" datePattern="dd/MM/yyyy" required="${field.isRequired()}" />
+#else
+	<h:inputText id="${field.name}" label="#{msg['${varCrudName}.${field.name}']}" value="#{${varCrudName}Bean.${varClassName}.${field.name}}" maxlength="100" required="${field.isRequired()}" styleClass="${field.getHtmlType().getFieldStyle()}" />
+#end
+#end
+##
+#if( ($field.getHtmlType().getType() == "html.type.text") && (($field.getHtmlType().getFieldStyle() != "input") && ($field.getHtmlType().getFieldStyle() != "inputsmall")))
+##
+#set ($estilo = $field.getHtmlType().getFieldStyle())
+##
+#if($field.getHtmlType().getFieldStyle() == "CPF")
+#set ($easyFieldStyle = "inputCpf")
+#elseif($field.getHtmlType().getFieldStyle() == "CNPJ")
+#set ($easyFieldStyle = "inputCnpj")
+#elseif($field.getHtmlType().getFieldStyle() == "SPU")
+#set ($easyFieldStyle = "inputMask")
+#set ($easyMask = "99999999-9")
+#elseif($field.getHtmlType().getFieldStyle() == "CEP")
+#set ($easyFieldStyle = "inputCep")
+#elseif($field.getHtmlType().getFieldStyle() == "Phone")
+#set ($easyFieldStyle = "inputPhone")
+#elseif($field.getHtmlType().getFieldStyle() == "Email")
+#set ($easyFieldStyle = "inputEmail")
+#elseif($field.getHtmlType().getFieldStyle() == "Password")
+#set ($easyFieldStyle = "inputSecret")
+#elseif($field.getHtmlType().getFieldStyle() == "Currency")
+#set ($easyFieldStyle = "inputCurrency")
+#end
+##
+
+#if($easyFieldStyle == "inputMask")
+<easy:inputMask id="${field.name}" label="#{msg['${varCrudName}.${field.name}']}"
+value="#{${varCrudName}Bean.${varClassName}.${field.name}}" 
+mask="${easyMask}" useMask="true" required="${field.isRequired()}"/>
+#elseif($easyFieldStyle == "inputSecret")
+	<h:inputSecret id="${field.name}" value="#{${varCrudName}Bean.${varClassName}.${field.name}}"
+	label="#{msg['${varCrudName}.${field.name}']}" size="15" maxlength="15"
+	required="${field.isRequired()}" styleClass="caixaTexto" redisplay="false"/>
+#else
+  <easy:${easyFieldStyle} id="${field.name}" label="#{msg['${varCrudName}.${field.name}']}"
+  value="#{${varCrudName}Bean.${varClassName}.${field.name}}"
+  useMask="true" required="${field.isRequired()}" submitWithMask="false"
+  useValidate="true"/>
+#end
+
+##
+#end
+##
+<h:graphicImage value="../images/sesace/required.gif" style="width:5px; border:0px; padding-left: 5px;" rendered="${field.isRequired()}" />
+</h:panelGroup>
+</h:panelGrid>
+</h:panelGroup>
+<!-- Fim Linha $i -->
+#end
+
+

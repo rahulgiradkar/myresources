@@ -1,0 +1,57 @@
+package ${data.config.mainPackage}.${data.crud.moduleName}.${data.bundle.get('package.mvc.business')}.${data.bundle.get('package.mvc.report')};
+#set ($varClassName = $stringUtils.unCapitalizeFirstLetter(${data.crud.crudClass.name}))
+#set ($typeClassName = ${data.crud.crudClass.name})
+
+#set ($varCrudName = $stringUtils.unCapitalizeFirstLetter(${data.crud.name}))
+#set ($typeCrudName = ${data.crud.name})
+
+import java.util.List;
+import java.util.ResourceBundle;
+
+import javax.faces.application.FacesMessage;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
+import ${data.config.mainPackage}.${data.crud.moduleName}.${data.bundle.get('package.mvc.model')}.exceptions.${stringUtils.normalizeClassName(${data.config.appName})}Exception;
+
+import ${data.config.mainPackage}.${data.crud.moduleName}.${data.bundle.get('package.mvc.model')}.${data.bundle.get('package.mvc.model.dao')}.${data.bundle.get('package.mvc.report')}.${data.crud.name}DAO;
+import ${data.crud.crudClass.fullName};
+
+/**
+ *
+ * @author ${data.bundle.get('generator.name')}
+ */
+@Component("${varCrudName}Business")
+@Transactional(readOnly = true)
+public class ${typeCrudName}Business {
+
+	@Autowired
+	@Qualifier("${varCrudName}DAO")
+	private ${typeCrudName}DAO ${varCrudName}DAO;
+
+
+	public void set${typeCrudName}DAO(${typeCrudName}DAO ${varCrudName}DAO) {
+		this.${varCrudName}DAO = ${varCrudName}DAO;
+	}
+
+#foreach( $field in $data.crud.crudClass.fieldsInOrder )
+#set ($varFieldName = $stringUtils.capitalizeFirstLetter(${field.name}))
+#if(($field.getHtmlType().getType() == "html.type.combo") && ($field.getClassDataType() != "char") && ($field.getClassDataType() != "java.lang.Character"))
+	public List<javax.faces.model.SelectItem> popularCombo${varFieldName}(){
+		return ${varCrudName}DAO.popularCombo${varFieldName}();
+	}
+#elseif(($field.getHtmlType().getType() == "html.type.radio") && ($field.getClassDataType() != "char") && ($field.getClassDataType() != "java.lang.Character"))
+	public List<javax.faces.model.SelectItem> popularRadio${varFieldName}(){
+		return ${varCrudName}DAO.popularRadio${varFieldName}();
+	}
+#end
+#end
+	@Transactional(readOnly = true)
+	public void gerar${typeCrudName}(${typeClassName} ${varClassName}) throws ${stringUtils.normalizeClassName(${data.config.appName})}Exception {
+		${varCrudName}DAO.gerar${typeCrudName}(${varClassName});
+	}
+}
+
+

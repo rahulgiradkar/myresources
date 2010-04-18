@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE template PUBLIC "-//J2EE Spider//DTD Template 1.0//EN" "http://www.j2eespider.org/dtds/template_1_1.dtd">
+
+<template>
+  <folder>jee-jsf</folder>f
+  <tech>
+  	<entry key="MVC">
+	    <string>JSF</string>	
+  	</entry>
+  	<entry key="IoC">
+    	<string>Spring</string>
+  	</entry>
+  	<entry key="Database Layer">
+    	<string>Hibernate</string>
+  	</entry>
+  	<entry key="Others">
+	    <string>HTTPS</string>
+	    <string>Jasper-Reports</string>
+	    <string>OpenID Login</string>
+	    <string>SESA-LOGIN</string>
+	    <string>SPRING-SECURITY</string>
+	    <string>CHAT</string>
+	</entry>
+  	<entry key="Database Type">
+	    <string>DB2</string>
+	    <string>DB2 AS/400</string>
+	    <string>DB2 OS390</string>
+	    <string>PostgreSQL</string>
+	    <string>MySQL</string>
+	    <string>MySQL InnoDB</string>
+	    <string>MySQL MyISAM</string>
+	    <string>Oracle</string>
+	    <string>Oracle 9i/10g</string>
+	    <string>Sybase</string>
+	    <string>Sybase Anywhere</string>
+	    <string>SQL Server</string>
+	    <string>SAP DB</string>
+	    <string>Informix</string>
+	    <string>HypersonicSQL</string>
+	    <string>Ingres</string>
+	    <string>Progress</string>
+	    <string>Mckoi SQL</string>
+	    <string>Interbase</string>
+	    <string>Pointbase</string>
+	    <string>FrontBase</string>
+	    <string>Firebird</string>
+	</entry>
+  </tech>
+  <techSelected>
+  	<entry key="MVC">
+	    <string>JSF</string>
+  	</entry>
+  	<entry key="IoC">
+    	    <string>Spring</string>
+  	</entry>
+  	    <entry key="Database Layer">
+    	<string>Hibernate</string>
+  	</entry>
+  </techSelected>
+  <techLayout>
+  	<entry key="Facelets">
+	    <string>JSF</string>
+  	</entry>
+  </techLayout>
+  <crudTypeConfig>
+  	<string>crud.type.default</string>
+  	<string>crud.type.modalFind</string>
+  	<string>crud.type.modalCad</string>
+  	<string>crud.type.report</string>
+  </crudTypeConfig>
+  <siteLayout>
+  	<layout>
+      <name>sesace</name>
+      <keyDescription>layout.sesace.description</keyDescription>
+      <isSetFirstColor>true</isSetFirstColor>
+      <isSetSecondColor>true</isSetSecondColor>
+      <isSetThirdColor>true</isSetThirdColor>
+      <isSetTextColor>true</isSetTextColor>
+      <layoutColor>
+	      <color>
+	      	  <name>color1</name>
+	      	  <image>/temp/screen/screen-sesace.jpg</image>
+		      <firstColor>#ffffff</firstColor>
+		      <secondColor>#39628f</secondColor>
+		      <thirdColor>#e4ecef</thirdColor>
+		      <textColor>#000000</textColor>
+	      </color>
+      </layoutColor>
+    </layout> 
+  </siteLayout>
+  <fieldStyles>
+  	<string>input</string>
+  	<string>inputsmall</string>
+  	<string>Currency</string>
+  	<string>CPF</string>
+  	<string>CNPJ</string>
+  	<string>SPU</string>
+  	<string>CEP</string>
+  	<string>Email</string>
+  	<string>Phone</string>
+  	<string>Password</string>
+	<string>textarea</string>
+	<string>combo</string>
+	<string>radio</string>
+	<string>check</string>
+	<string>hidden</string>
+	<string>file_hd</string>
+	<string>file_db</string>
+	<string>image_hd</string>
+	<string>image_db</string>
+  </fieldStyles>
+  <enabledPages>
+  	<string>package</string>  
+  	<string>tech</string>
+  	<string>layout</string>
+  	<string>mapping</string>
+  	<string>crudByMapping</string>
+  </enabledPages>
+  <disabledFeatures>
+  	<string>crud.validation.applyIf</string>
+  </disabledFeatures>   
+  <requiredPlugins>
+  	<plugin>
+  		<shortName>WTP</shortName>
+  		<minimumVersion/>
+  		<id>org.eclipse.jst.j2ee.ui</id>
+  		<url>http://www.eclipse.org/webtools</url>
+  	</plugin>
+  </requiredPlugins>
+</template>

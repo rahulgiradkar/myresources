@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich" xml:lang="pt" lang="pt-br">
+<f:view>
+	<body>
+	<h:form>
+		<rich:toolBar itemSeparator="line">
+			<rich:dropDownMenu>
+				<f:facet name="label">
+					<h:panelGroup>
+						<h:outputLabel value="#{msg['menu.create']}" />
+						<h:graphicImage value="../images/sesace/icon-seta.gif"
+							style="width: 12px; margin-bottom: -4x" />
+					</h:panelGroup>
+				</f:facet>				
+			</rich:dropDownMenu>
+
+			<rich:dropDownMenu>
+				<f:facet name="label">
+					<h:panelGroup>
+						<h:outputLabel value="#{msg['menu.processes']}"/>
+						<h:graphicImage value="../images/sesace/icon-seta.gif"
+							style="WIDTH: 12px; MARGIN-BOTTOM: -4x;"/>
+					</h:panelGroup>
+				</f:facet>
+				<rich:menuItem value="#{msg['menu.cadastro.nomeCadastro']}"
+					action="#{menuBean.nomeCadastro}" submitMode="ajax"/>
+			</rich:dropDownMenu>
+
+			<rich:dropDownMenu>
+				<f:facet name="label">
+					<h:panelGroup>
+						<h:outputLabel value="#{msg['menu.report']}" />
+						<h:graphicImage value="../images/sesace/icon-seta.gif" style="width: 12px" />
+					</h:panelGroup>
+				</f:facet>
+			</rich:dropDownMenu>
+
+			<rich:toolBarGroup location="right" itemSeparator="line">
+				<h:panelGroup>
+				<h:panelGrid columns="2" style="PADDING: 0px;">
+					<h:graphicImage value="../images/sesace/user.png" width="20" border="0"
+						style="padding-right: 7px" />
+					<h:panelGroup>
+#if($list.contains(${data.config.techOthers}, 'SESA-LOGIN'))
+					<h:outputText value="#{usuarioBean.usuarioVO.nome}" style="color: #ffffff;" />
+#else
+					<c:if test="#{not empty sessionScope.SPRING_SECURITY_LAST_USERNAME}">
+						<h:outputText value="#{sessionScope.SPRING_SECURITY_LAST_USERNAME}"/>
+					</c:if>
+#end
+					</h:panelGroup>
+				</h:panelGrid>
+				</h:panelGroup>
+
+				<h:panelGroup>
+				<h:panelGrid columns="2" style="PADDING: 0px;">
+					<h:panelGroup>
+						<h:commandLink action="blank" title="#{msg['menu.mainPage']}"
+						style="color: #ffffff;">
+						<img src="../images/sesace/principal.gif" border="0" width="20"
+							style="padding-right: 7px" />
+						</h:commandLink>
+					</h:panelGroup>
+						<h:commandLink action="blank" title="#{msg['menu.mainPage']}" style="color: #ffffff;" >
+							<h:outputText value="#{msg['menu.mainPage']}"/>
+						</h:commandLink>
+				</h:panelGrid>
+				</h:panelGroup>
+
+				<h:panelGroup>
+				<h:panelGrid columns="2" style="PADDING: 0px;">
+#if($list.contains(${data.config.techOthers}, 'SESA-LOGIN'))
+					<h:panelGroup>
+					<h:commandLink action="login" title="#{msg['menu.logoff']}">
+						<img src="../images/sesace/password.gif" border="0" width="20" style="padding-right: 7px"/>
+					</h:commandLink>
+					</h:panelGroup>
+					<h:commandLink action="login" title="#{msg['menu.logoff']}">
+						<h:outputText style="color:white" value="#{msg['menu.logoff']}"/>
+					</h:commandLink>
+#else
+					<h:panelGroup>
+						<h:outputLink value="${request.contextPath}/j_spring_security_logout" title="#{msg['menu.logoff']}">
+						<img src="../images/sesace/password.gif" border="0" width="20" style="padding-right: 7px"/>
+						</h:outputLink>
+					</h:panelGroup>
+					<h:outputLink value="${request.contextPath}/j_spring_security_logout" title="#{msg['menu.logoff']}">
+						<h:outputText style="color:white" value="#{msg['menu.logoff']}"/>
+					</h:outputLink>
+#end
+
+				</h:panelGrid>
+				</h:panelGroup>
+			</rich:toolBarGroup>
+		</rich:toolBar>
+	</h:form>
+	</body>
+</f:view>
+</html>

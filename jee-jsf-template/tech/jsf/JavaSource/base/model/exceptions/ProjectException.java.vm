@@ -1,0 +1,51 @@
+package ${data.config.mainPackage}.${data.bundle.get('package.base')}.${data.bundle.get('package.mvc.model')}.${data.bundle.get('package.mvc.model.exceptions')};
+
+
+import i18n.MsgUtil;
+
+import javax.faces.application.FacesMessage.Severity;
+/**
+ *
+ * @author ${data.bundle.get('generator.name')}
+ */
+public class ${stringUtils.normalizeClassName(${data.config.appName})}Exception extends Exception {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	/**
+	 * @param message
+	 * @param cause
+	 */
+	private Severity severity;
+	private String friendlyMessage;
+
+	public Severity getSeverity() {
+		return severity;
+	}
+
+    public ${stringUtils.normalizeClassName(${data.config.appName})}Exception() {
+    	super();
+    }
+
+	public ${stringUtils.normalizeClassName(${data.config.appName})}Exception(String friendlyMessage, Throwable cause, Severity severity) {
+		super(cause);
+		this.friendlyMessage = friendlyMessage;
+		this.severity = severity;
+		tratarMensagem();
+	}
+
+	public ${stringUtils.normalizeClassName(${data.config.appName})}Exception(String friendlyMessage, Severity severity) {
+		this.friendlyMessage = friendlyMessage;
+		this.severity = severity;
+	}
+
+	public String getFriendlyMessage() {
+		return friendlyMessage;
+	}
+
+	protected void tratarMensagem() {
+		MsgUtil.addMessage(this);
+	}
+}

@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0"
+          xmlns="http://www.w3.org/1999/xhtml"
+          xmlns:ui="http://java.sun.com/jsf/facelets"
+          xmlns:h="http://java.sun.com/jsf/html"
+          xmlns:f="http://java.sun.com/jsf/core"
+          xmlns:c="http://java.sun.com/jstl/core"
+          xmlns:a4j="http://richfaces.org/a4j"
+          xmlns:rich="http://richfaces.org/rich"
+	  xmlns:easy="http://easyfaces.com.br/easyfaces">
+#set ($varClassName = ${stringUtils.unCapitalizeFirstLetter(${data.crud.crudClass.name})})
+#set ($typeClassName = ${data.crud.crudClass.name})
+
+#set ($varCrudName = ${stringUtils.unCapitalizeFirstLetter(${data.crud.name})})
+#set ($typeCrudName = ${data.crud.name})
+<f:view>
+	<ui:composition template="../layout/sesace/layout.jspx">
+
+	<ui:define name="bodyCadastro">
+		<rich:panel id="PRINCIPAL" headerClass="headerPanel">
+			<f:facet name="header">
+				<h:form id="link">
+				<rich:toolBar itemSeparator="line" style="border: 0px">
+					<h:panelGrid columns="2" style="PADDING: 0px;">
+						<h:panelGroup>
+						<h:commandLink action="#{${varCrudName}Bean.buttonAdd}" title="#{msg['button.new']}"> 
+							<h:graphicImage id="novo" value="../images/sesace/new.gif" style="border:0px; width:18px"/>
+						</h:commandLink>
+						</h:panelGroup>
+						<h:commandLink action="#{${varCrudName}Bean.buttonAdd}" title="#{msg['button.new']}" style="color: #ffffff;" >
+							<h:outputLabel style="color:white" value="#{msg['button.new']}" for="novo"/>
+						</h:commandLink>
+					</h:panelGrid>
+
+					<rich:toolBarGroup>
+					<h:panelGrid columns="2" style="PADDING: 0px;">
+						<h:panelGroup>
+							<h:commandLink action="#{${varCrudName}Bean.buttonSearch}" title="#{msg['button.search']}" >
+								<h:graphicImage id="pesquisar" value="../images/sesace/27.jpg" style="border:0px; width:18px" />
+							</h:commandLink>
+						</h:panelGroup>
+						<h:commandLink action="#{${varCrudName}Bean.buttonSearch}" title="#{msg['button.search']}" style="color: #ffffff;" >
+							<h:outputLabel style="color:white" value="#{msg['button.search']}" for="pesquisar"/>
+						</h:commandLink>
+					</h:panelGrid>
+					</rich:toolBarGroup>
+					<rich:toolBarGroup location="right">
+						<h:panelGroup>
+						<h:outputText value="#{msg['label.panel.create']} #{msg['${varCrudName}.tituloPagina']}" rendered="#{${varCrudName}Bean.estadoAdiciona}"/>
+						<h:outputText value="#{msg['label.panel.edit']} #{msg['${varCrudName}.tituloPagina']}" rendered="#{${varCrudName}Bean.estadoEdita}"/>
+						<h:outputText value="#{msg['label.panel.search']} #{msg['${varCrudName}.tituloPagina']}" rendered="#{${varCrudName}Bean.estadoPesquisa or ${varCrudName}Bean.estadoResultadoPesquisa}"/>
+					</h:panelGroup>
+					</rich:toolBarGroup>
+				</rich:toolBar>
+				</h:form>
+			</f:facet>
+			<!-- [fim] form dos botoes -->
+
+			<!-- campos obrigatorios -->
+			<h:panelGroup rendered="#{${varCrudName}Bean.estadoAdiciona or ${varCrudName}Bean.estadoEdita}">
+			<h:panelGrid columns="2">
+				<h:graphicImage value="../images/sesace/required.gif" style="width:5px; border:0px; padding-left: 5px;"/>
+				<h:outputText value="#{msg['label.fields.required']}" styleClass="campoObrigatorio"/>
+			</h:panelGrid>
+			</h:panelGroup>
+			<br/>
+			<!-- [] campos obrigatorios -->
+
+#set($i = 0)
+#foreach( $field in $data.crud.crudClass.fieldsInOrder )
+#set ($fieldWithoutFk = ${stringUtils.capitalizeFirstLetter(${stringUtils.sub(${field.name},"Fk","")})})
+#**##if($field.getHtmlType().getType() == "html.type.modalcadfind")	<!-- modalPanel -->
+        <a4j:include viewId="../pages/${fieldWithoutFk}ModalFind.jspx" />
+        <a4j:include viewId="../pages/${fieldWithoutFk}ModalCad.jspx" />
+#elseif($field.getHtmlType().getType() == "html.type.modalcad")
+        <a4j:include viewId="../pages/${fieldWithoutFk}ModalCad.jspx" />
+#elseif($field.getHtmlType().getType() == "html.type.modalfind")
+        <a4j:include viewId="../pages/${fieldWithoutFk}ModalFind.jspx" />
+#end
+#end
+
+
+			<h:form id="formCadastro" rendered="#{${varCrudName}Bean.estadoAdiciona or ${varCrudName}Bean.estadoEdita}">
+			<fieldset>
+#set($i = 0)
+#foreach( $field in $data.crud.crudClass.getFieldsInOrderByLocation('html.field.location.insert','html.field.location.edit') )
+#**##if($field.getHtmlType().getType() != "html.type.hidden")
+#*	  *##set($i = $i + 1)
+##
+#parse("crud/fieldCreate.vm")
+#end
+#end
+			</fieldset>
+				<h:panelGrid border="0" columns="2">
+				<a4j:region immediate="true">
+					<h:commandButton action="#{${varCrudName}Bean.${data.bundle.get('crud.method.save')}}" value="#{msg['button.save']}" title="#{msg['button.save']}" styleClass="buttons" />
+					<a4j:commandButton action="#{${varCrudName}Bean.${data.bundle.get('crud.method.clearForm')}}" reRender="formCadastro" value="#{msg['button.clean']}" title="#{msg['button.clean']}" styleClass="buttons" />
+				</a4j:region>
+				</h:panelGrid>                    
+			</h:form>
+			<!-- [fim] form cadastro -->
+
+			<!-- [inicio] form consulta -->
+			<h:form id="formPesquisa" rendered="#{${varCrudName}Bean.estadoPesquisa or ${varCrudName}Bean.estadoResultadoPesquisa}">
+			<fieldset>
+#set($i = 0)
+#foreach( $field in $data.crud.crudClass.getFieldsInOrderByLocation('html.field.location.search') )
+#**##if($field.getHtmlType().getType() != "html.type.hidden")
+#*	  *##set($i = $i + 1)
+##
+#parse("crud/fieldSearch.vm")
+#end
+#end
+			</fieldset>
+				<h:panelGrid border="0" columns="2">
+				<a4j:region immediate="true">
+					<h:commandButton action="#{${varCrudName}Bean.${data.bundle.get('crud.method.search')}}" value="#{msg['button.execSearch']}" title="#{msg['button.execSearch']}" styleClass="buttonSearch"/>
+					<a4j:commandButton action="#{${varCrudName}Bean.${data.bundle.get('crud.method.clearForm')}}" reRender="formPesquisa" value="#{msg['button.clean']}" title="#{msg['button.clean']}" styleClass="buttons"/>
+				</a4j:region>
+				</h:panelGrid>
+			</h:form>
+			<!-- [fim] form consulta -->
+		</rich:panel>
+
+		<br/>
+
+			<!-- [inicio] form resultado pesquisa -->
+		<rich:panel rendered="#{${varCrudName}Bean.estadoResultadoPesquisa}">
+			<f:facet name="header">
+				<h:outputText value="#{msg['label.panel.searchResult']} #{msg['${varCrudName}.tituloPagina']}"/>
+			</f:facet>
+
+			<h:form id="formResultado" >    
+            <a4j:keepAlive beanName="${varCrudName}Bean"/> 
+<center>
+<h:panelGrid columns="1" width="750">                           
+				<rich:dataTable id="lista${typeCrudName}" width="100%" value="#{${varCrudName}Bean.${varCrudName}Lista}" var="var${typeCrudName}" align="center" rows="20" border="1">
+					<f:facet name="header">
+						<rich:columnGroup>
+#set($i = 0)
+#foreach( $field in $data.crud.crudClass.getFieldsInOrderByLocation('html.field.location.searchResults') )
+#**##if($field.getHtmlType().getType() != "html.type.hidden" && $field.getHtmlType().getType() != "html.type.file_hd" && $field.getHtmlType().getType() != "html.type.file_db" && $field.getHtmlType().getType() != "html.type.image_hd" && $field.getHtmlType().getType() != "html.type.image_db")
+#*	  *##set($i = $i + 1)
+							<rich:column>
+								<h:outputText value="#{msg['${varCrudName}.${field.name}']}" />
+							</rich:column>
+#end
+#end
+							<rich:column>
+								<h:outputText value="#{msg['button.delete']}"/>
+							</rich:column>
+						</rich:columnGroup>
+					</f:facet>
+
+#set($i = 0)
+#foreach( $field in $data.crud.crudClass.getFieldsInOrderByLocation('html.field.location.searchResults') )
+#**##if($field.getHtmlType().getType() != "html.type.hidden" && $field.getHtmlType().getType() != "html.type.file_hd" && $field.getHtmlType().getType() != "html.type.file_db" && $field.getHtmlType().getType() != "html.type.image_hd" && $field.getHtmlType().getType() != "html.type.image_db")
+#*	  *##set($i = $i + 1)
+					<rich:column>
+						<h:commandLink value="#{var${typeCrudName}.${field.name}}" action="#{${varCrudName}Bean.botaoEditar}" title="#{msg['button.edit']}">
+							<f:setPropertyActionListener target="#{${varCrudName}Bean.${varClassName}}" value="#{var${typeCrudName}}"/>
+						</h:commandLink>
+
+					</rich:column>
+#end
+#end
+
+					<rich:column style="width:5%; align:center"> 
+						<h:commandLink action="#{${varCrudName}Bean.${data.bundle.get('crud.method.delete')}}" title="#{msg['button.delete']}" onclick="if ( !confirm('Deseja Remover esse ${typeCrudName} ?')) return false"  >
+							<h:graphicImage value="../images/sesace/delete.gif" style="border:0px" alt="${data.bundle.get('jsp.delete.desc')}"/>
+							<f:setPropertyActionListener target="#{${varCrudName}Bean.${varClassName}}" value="#{var${typeCrudName}}"/>
+						</h:commandLink>
+					</rich:column>
+				</rich:dataTable>
+				<rich:spacer height="5" />
+				<rich:datascroller for="lista${typeCrudName}" maxPages="20" />  
+</h:panelGrid>
+</center>
+            </h:form>
+				<!-- [fim] form dos botoes -->
+			</rich:panel>
+
+    </ui:define>
+
+    </ui:composition>   
+</f:view>
+</jsp:root>
+

@@ -1,0 +1,44 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:rich="http://richfaces.org/rich"
+      xmlns:a4j="http://richfaces.org/a4j"
+      xmlns:t="http://myfaces.apache.org/tomahawk"
+	  xml:lang="pt" lang="pt-br">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+        <title><h:outputText value="#{msg['project.title']}"/></title>
+        <link href="../css/sesace/layout.css" rel="stylesheet" type="text/css"/>
+        <link href="../css/sesace/content.css" rel="stylesheet" type="text/css"/>
+    </head>
+    <f:view>
+        <body scroll="no">
+            
+            <!--## TOPO LAYOUT ##-->
+            <div id="topo">
+                <table class="topoTable" cellpadding="0" cellspacing="0" align="center" border="0">
+                    <tr>
+					<td align="left" height="80" valign="middle" colspan="4"><img src="../images/sesace/sesa.jpg" border="0"/></td>                        
+                    </tr>
+                    
+					<tr height="25">
+						<td background="../images/sesace/body_title.png" width="15"/>                        
+						<td background="../images/sesace/body_title.png" align="left" ></td>
+						<td background="../images/sesace/body_title.png" width="250" valign="middle"></td>
+						<td background="../images/sesace/body_title.png" align="right"></td>
+                    </tr>
+                </table>
+            </div>
+            
+            <!--## CONTENT LAYOUT CADASTRO##-->
+    
+            <div id="content" class="scroll">		
+                <!-- ## Cadastro ## -->
+                <ui:insert name="bodyCadastro"/>
+            </div>    
+            
+        </body>
+    </f:view>
+</html>

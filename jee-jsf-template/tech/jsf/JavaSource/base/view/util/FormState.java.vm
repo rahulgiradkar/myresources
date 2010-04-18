@@ -1,0 +1,81 @@
+package ${data.config.mainPackage}.${data.bundle.get('package.base')}.${data.bundle.get('package.mvc.view')}.${data.bundle.get('package.mvc.view.util')};
+
+/**
+ *
+ * @author ${data.bundle.get('generator.name')}
+ */
+
+public class FormState {
+
+	public static final String STATE_ADD = "adicionar";
+	public static final String STATE_EDIT = "editar";
+	public static final String STATE_SEARCH = "pesquisar";
+	public static final String STATE_SEARCH_RESULT = "resultadoPesquisa";
+
+	// Definicao do estado inicial da pagina
+	private String currentState = STATE_ADD;
+
+	/** [inicio] Getters and Setters* */
+	public String getCurrentState() {
+		return currentState;
+	}
+
+	public void setCurrentState(String currentState) {
+		this.currentState = currentState;
+	}
+
+	/** [fim] Getters and Setters* */
+
+	/** [inicio] Verificacao do estado das Paginas * */
+
+	// novo registro
+	public boolean isEstadoAdiciona() {
+		String estadoAtual = this.getCurrentState();
+		return (estadoAtual == null || STATE_ADD.equals(estadoAtual));
+	}
+
+	// edita registro
+	public boolean isEstadoEdita() {
+		return STATE_EDIT.equals(this.getCurrentState());
+	}
+
+	// pesquisa registro
+	public boolean isEstadoPesquisa() {
+		return STATE_SEARCH.equals(this.getCurrentState());
+	}
+
+	// resultado pesquisa
+	public boolean isEstadoResultadoPesquisa() {
+		return STATE_SEARCH_RESULT.equals(this.getCurrentState());
+	}
+
+	/** [inicio] Verificacao do estado das Paginas * */
+
+	/** [Inicio] Metodos de navegacao dos botoes * */
+
+
+	// ${data.bundle.get('crud.method.save')}
+	public String ${data.bundle.get('crud.method.buttonAdd')}() {
+		this.setCurrentState(STATE_ADD);
+		return null;
+	}
+
+	// editar
+	public String botaoEditar() {
+		this.setCurrentState(STATE_EDIT);
+		return null;
+	}
+
+	// pesquisar
+	public String ${data.bundle.get('crud.method.buttonSearch')}() {
+		this.setCurrentState(STATE_SEARCH);
+		return null;
+	}
+
+	// Executar pesquisa
+	public String botaoExecutaPesquisa() {
+		this.setCurrentState(STATE_SEARCH_RESULT);
+		return null;
+	}
+	/** [fim] Metodos de navegacao dos botoes * */
+}
