@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="lib" path="tech/jsf/WebContent/WEB-INF/lib/classes12.jar"/>
+	<classpathentry kind="lib" path="tech/jsf/WebContent/WEB-INF/lib/commons-dbutils-1.0.jar"/>
+	<classpathentry kind="lib" path="tech/jsf/WebContent/WEB-INF/lib/easyfaces-ui-1.0.3.jar"/>
+	<classpathentry kind="lib" path="tech/jsf/WebContent/WEB-INF/lib/jsf-api-1.2_07.jar"/>
+	<classpathentry kind="lib" path="tech/jsf/WebContent/WEB-INF/lib/jsf-facelets-1.1.13.jar"/>
+	<classpathentry kind="lib" path="tech/jsf/WebContent/WEB-INF/lib/jsf-impl-1.2_07.jar"/>
+	<classpathentry kind="lib" path="tech/jsf/WebContent/WEB-INF/lib/richfaces-api-3.2.1.GA.jar"/>
+	<classpathentry kind="lib" path="tech/jsf/WebContent/WEB-INF/lib/richfaces-impl-3.2.1.GA.jar"/>
+	<classpathentry kind="lib" path="tech/jsf/WebContent/WEB-INF/lib/richfaces-ui-3.2.1.GA.jar"/>
+	<classpathentry kind="lib" path="tech/jsf/WebContent/WEB-INF/lib/sistemasbase.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

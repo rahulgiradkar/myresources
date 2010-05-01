@@ -1,0 +1,17 @@
+package ${data.config.mainPackage}.${data.bundle.get('package.base')}.${data.bundle.get('package.mvc.view')}.${data.bundle.get('package.mvc.view.util')};
+
+/**
+ *
+ * @author ${data.bundle.get('generator.name')}
+ */
+
+public class MenuBean {
+
+#foreach( $crud in ${data.config.cruds} )
+	public String $stringUtils.unCapitalizeFirstLetter(${data.crud.name})(){
+		return "$stringUtils.unCapitalizeFirstLetter(${data.crud.name})";
+	}
+
+#end
+
+}

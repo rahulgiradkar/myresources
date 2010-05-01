@@ -1,0 +1,1 @@
+				<rich:menuItem value="#{msg['menu.create.${stringUtils.unCapitalizeFirstLetter(${data.crud.name})}']}" action="#{menuBean.${stringUtils.unCapitalizeFirstLetter(${data.crud.name})}}" submitMode="ajax" />

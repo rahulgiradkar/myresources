@@ -1,0 +1,16 @@
+package ${data.config.mainPackage}.${data.bundle.get('package.base')}.${data.bundle.get('package.mvc.view')}.${data.bundle.get('package.mvc.view.util')};
+
+/**
+ *
+ * @author ${data.bundle.get('generator.name')}
+ */
+public interface IBean {
+
+	public String ${data.bundle.get('crud.method.save')}();
+	public String ${data.bundle.get('crud.method.delete')}();
+	public String ${data.bundle.get('crud.method.search')}();
+	
+	public void ${data.bundle.get('crud.method.clearForm')}();
+	
+	
+}

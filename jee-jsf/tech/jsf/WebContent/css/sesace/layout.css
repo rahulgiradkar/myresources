@@ -1,0 +1,32 @@
+
+@import url("content.css");
+
+body{
+    font-family:Verdana, Arial, Helvetica, sans-serif;
+    margin: 0px;
+    vertical-align:top;
+    color:#000000;
+    font-size: 8pt;
+}
+
+#topo{
+    background:url(../../images/sesace/back_ondas.jpg) no-repeat right bottom; height:80px; paddin:0;
+}
+
+#messages{
+    margin-top: 40px;
+}
+
+#content{
+	margin-top: 5px;
+    clear:both; 
+}
+
+.scroll {
+    background-color: transparent;
+    padding: 10px 10px 10px 10px;
+    height:100%;
+    max-height: 500px;
+    overflow: auto;
+    height: expression(document.body.clientHeight > 100? '500px': 'auto'); /* hack IE */
+}

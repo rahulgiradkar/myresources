@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+#if($list.contains(${data.config.techOthers}, 'HTTPS'))
+#set($channel = "requires-channel=\"https\"")						
+#else
+#set($channel = "")				
+#end
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+    xmlns:beans="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+                        http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-2.0.1.xsd">
+
+    <http auto-config="true">
+    	<intercept-url pattern="/css/**" filters="none" />
+    	<intercept-url pattern="/images/**" filters="none" />
+    	<intercept-url pattern="/js/**" filters="none" />    
+        <intercept-url pattern="/pages/login.jsf" access="IS_AUTHENTICATED_ANONYMOUSLY" ${channel}/>
+        <intercept-url pattern="/**" access="ROLE_USER" ${channel}/>
+
+#if($list.contains(${data.config.techOthers}, 'OpenID Login'))
+        <openid-login login-page="/pages/login.jsf" authentication-failure-url="/pages/login.jsf?login_error=1" default-target-url="/pages/blank.jsf" always-use-default-target="true"/>
+#else
+        <form-login login-page="/pages/login.jsf" authentication-failure-url="/pages/login.jsf?login_error=1" default-target-url="/pages/blank.jsf" always-use-default-target="true"/>
+#end
+ 
+        <logout logout-success-url="/index.jsp"/>  
+#if($list.contains(${data.config.techOthers}, 'HTTPS'))  
+		<port-mappings>
+			<port-mapping http="8080" https="8443"/>
+		</port-mappings>
+#end		     
+    </http>
+
+    <authentication-provider>
+        <user-service>
+#if($list.contains(${data.config.techOthers}, 'OpenID Login'))
+            <user name="http://bgbraga.myopenid.com/" password="notused" authorities="ROLE_USER" />
+#else
+            <user name="admin" password="admin" authorities="ROLE_USER" />
+#end    
+	    </user-service>
+	</authentication-provider>
+
+</beans:beans>

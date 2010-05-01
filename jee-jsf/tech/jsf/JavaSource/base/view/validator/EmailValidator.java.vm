@@ -1,0 +1,24 @@
+package ${data.config.mainPackage}.${data.bundle.get('package.base')}.${data.bundle.get('package.mvc.view')}.${data.bundle.get('package.mvc.view.validator')};
+
+import i18n.MsgUtil;
+
+import javax.faces.component.UIComponent;
+import javax.faces.component.UIInput;
+import javax.faces.context.FacesContext;
+import javax.faces.validator.Validator;
+
+/**
+ *
+ * @author ${data.bundle.get('generator.name')}
+ */
+
+public class EmailValidator implements Validator { 
+	 
+	public void validate(FacesContext context, UIComponent toValidate,	Object value) { 
+		String email = (String) value; 
+		if (email.indexOf('@') == -1) { 
+			((UIInput) toValidate).setValid(false); 
+			MsgUtil.addErrorMessage("Email inválido");
+		} 
+	} 
+}

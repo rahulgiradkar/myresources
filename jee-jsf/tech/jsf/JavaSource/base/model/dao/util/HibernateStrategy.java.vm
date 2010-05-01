@@ -1,0 +1,29 @@
+package ${data.config.mainPackage}.${data.bundle.get('package.base')}.${data.bundle.get('package.mvc.model')}.${data.bundle.get('package.mvc.model.dao')}.${data.bundle.get('package.mvc.model.dao.util')};
+
+import org.hibernate.cfg.reveng.DelegatingReverseEngineeringStrategy;
+import org.hibernate.cfg.reveng.ReverseEngineeringStrategy;
+import org.hibernate.cfg.reveng.TableIdentifier;
+
+public class HibernateStrategy extends DelegatingReverseEngineeringStrategy {
+
+ public HibernateStrategy(ReverseEngineeringStrategy delegate) {
+  super(delegate);
+ }
+
+ public String columnToPropertyName(TableIdentifier table, String column) {
+  if(column.endsWith("PK")) {
+   return "id";
+  } else {
+   return super.columnToPropertyName(table, column);
+  }
+ }
+
+public String tableToClassName(TableIdentifier tableIdentifier) {
+	  String packageName = "us.mikedesjardins.data";
+	  String className = super.tableToClassName(tableIdentifier);
+	  if (className.startsWith("Tb")) {
+	    className = className.substring(2);
+	  }
+	  return className;
+	}
+}

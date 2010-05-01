@@ -1,0 +1,303 @@
+<?xml version="1.0" ?>
+<!DOCTYPE map PUBLIC "-//J2EE Spider//DTD Database Type 1.0//EN" "http://www.j2eespider.org/dtds/database_type_1_0.dtd">
+
+<map>
+  <entry>
+    <string>-hibernateDialect</string> <!-- dialect and driver default (if the user not to choose databaseType) -->
+    <string>org.hibernate.dialect.MySQLDialect</string>
+  </entry>
+  <entry>
+    <string>-driver</string>
+    <string>com.mysql.jdbc.Driver</string>
+  </entry>
+  <entry>
+    <string>-url</string>
+    <string>??</string>
+  </entry>
+
+  <entry>
+    <string>DB2-hibernateDialect</string>
+    <string>org.hibernate.dialect.DB2Dialect</string>
+  </entry>
+  <entry>
+    <string>DB2-driver</string>
+    <string>com.ibm.db2.jcc.DB2Driver</string>
+  </entry>
+  <entry>
+    <string>DB2-url</string>
+    <string>jdbc:db2://[host default=localhost]:[port default=50000]/[name default=databaseName]</string>
+  </entry>
+  
+  <entry>
+    <string>DB2 AS/400-hibernateDialect</string>
+    <string>org.hibernate.dialect.DB2400Dialect</string>
+  </entry>
+  <entry>
+    <string>DB2 AS/400-driver</string>
+    <string>com.ibm.as400.access.AS400JDBCDriver</string>
+  </entry>
+  <entry>
+    <string>DB2 AS/400-url</string>
+    <string>jdbc:db2://[host default=localhost]:[port default=50000]/[name default=databaseName]</string>
+  </entry>
+  
+  <entry>
+    <string>DB2 OS390-hibernateDialect</string>
+    <string>org.hibernate.dialect.DB2390Dialect</string>
+  </entry>
+  <entry>
+    <string>DB2 OS390-driver</string>
+    <string>com.ibm.db2.jcc.DB2Driver</string>
+  </entry>
+  <entry>
+    <string>DB2 OS390-url</string>
+    <string>jdbc:db2://[host default=localhost]:[port default=50000]/[name default=databaseName]</string>
+  </entry>
+  
+  <entry>
+    <string>PostgreSQL-hibernateDialect</string>
+    <string>org.hibernate.dialect.PostgreSQLDialect</string>
+  </entry>
+  <entry>
+    <string>PostgreSQL-driver</string>
+    <string>org.postgresql.Driver</string>
+  </entry>
+  <entry>
+    <string>PostgreSQL-url</string>
+    <string>jdbc:postgresql://[host default=localhost]:[port default=5432]/[name default=databaseName]</string>
+  </entry>
+
+  <entry>
+    <string>MySQL-hibernateDialect</string>
+    <string>org.hibernate.dialect.MySQLDialect</string>
+  </entry>
+  <entry>
+    <string>MySQL-driver</string>
+    <string>com.mysql.jdbc.Driver</string>
+  </entry>
+  <entry>
+    <string>MySQL-url</string>
+    <string>jdbc:mysql://[host default=localhost]:[port default=3306]/[name default=databaseName]</string>
+  </entry>
+  
+  <entry>
+    <string>MySQL InnoDB-hibernateDialect</string>
+    <string>org.hibernate.dialect.MySQLInnoDBDialect</string>
+  </entry>
+  <entry>
+    <string>MySQL InnoDB-driver</string>
+    <string>com.mysql.jdbc.Driver</string>
+  </entry>
+  <entry>
+    <string>MySQL InnoDB-url</string>
+    <string>jdbc:mysql://[host default=localhost]:[port default=3306]/[name default=databaseName]</string>
+  </entry>
+  
+  <entry>
+    <string>MySQL MyISAM-hibernateDialect</string>
+    <string>org.hibernate.dialect.MySQLMyISAMDialect</string>
+  </entry>
+  <entry>
+    <string>MySQL MyISAM-driver</string>
+    <string>com.mysql.jdbc.Driver</string>
+  </entry>
+  <entry>
+    <string>MySQL MyISAM-url</string>
+    <string>jdbc:mysql://[host default=localhost]:[port default=3306]/[name default=databaseName]</string>
+  </entry>
+  
+  <entry>
+    <string>Oracle-hibernateDialect</string>
+    <string>org.hibernate.dialect.OracleDialect</string>
+  </entry>
+  <entry>
+    <string>Oracle-driver</string>
+    <string>oracle.jdbc.driver.OracleDriver</string>
+  </entry>
+  <entry>
+    <string>Oracle-url</string>
+    <string>jdbc:oracle:thin:@[host default=localhost]:[port default=1521]:[name default=databaseName]</string>
+  </entry>
+  
+  <entry>
+    <string>Oracle 9i/10g-hibernateDialect</string>
+    <string>org.hibernate.dialect.Oracle9Dialect</string>
+  </entry>
+  <entry>
+    <string>Oracle 9i/10g-driver</string>
+    <string>oracle.jdbc.driver.OracleDriver</string>
+  </entry>
+  <entry>
+    <string>Oracle 9i/10g-url</string>
+    <string>jdbc:oracle:thin:@[host default=localhost]:[port default=1521]:[name default=databaseName]</string>
+  </entry>
+  
+  <entry>
+    <string>Sybase-hibernateDialect</string>
+    <string>org.hibernate.dialect.SybaseDialect</string>
+  </entry>
+  <entry>
+    <string>Sybase-driver</string>
+    <string>com.sybase.jdbc2.jdbc.SybDriver</string>
+  </entry>
+  <entry>
+    <string>Sybase-url</string>
+    <string>jdbc:sybase:Tds:[host default=localhost]:[port default=5000]/[name default=databaseName]</string>
+  </entry>
+  
+  <entry>
+    <string>Sybase Anywhere-hibernateDialect</string>
+    <string>org.hibernate.dialect.SybaseAnywhereDialect</string>
+  </entry>
+  <entry>
+    <string>Sybase Anywhere-driver</string>
+    <string>com.sybase.jdbc2.jdbc.SybDriver</string>
+  </entry>
+  <entry>
+    <string>Sybase Anywhere-url</string>
+    <string>jdbc:sybase:Tds:[host default=localhost]:[port default=5000]/[name default=databaseName]</string>
+  </entry>
+  
+  <entry>
+    <string>SQL Server-hibernateDialect</string>
+    <string>org.hibernate.dialect.SQLServerDialect</string>
+  </entry>
+  <entry>
+    <string>SQL Server-driver</string>
+    <string>com.microsoft.jdbc.sqlserver.SQLServerDriver</string>
+  </entry>
+  <entry>
+    <string>SQL Server-url</string>
+    <string>jdbc:sqlserver://[host default=localhost]:[port default=1433];databaseName=[name default=databaseName];</string>
+  </entry>
+  
+  <entry>
+    <string>SAP DB-hibernateDialect</string>
+    <string>org.hibernate.dialect.SAPDBDialect</string>
+  </entry>
+  <entry>
+    <string>SAP DB-driver</string>
+    <string>com.sap.dbtech.jdbc.DriverSapDB</string>
+  </entry>
+  <entry>
+    <string>SAP DB-url</string>
+    <string>jdbc:sapdb://[host default=localhost]/[name default=databaseName]</string>
+  </entry>
+  
+  <entry>
+    <string>Informix-hibernateDialect</string>
+    <string>org.hibernate.dialect.InformixDialect</string>
+  </entry>
+  <entry>
+    <string>Informix-driver</string>
+    <string>com.informix.jdbc.IfxDriver</string>
+  </entry>
+  <entry>
+    <string>Informix-url</string>
+    <string>jdbc:informix-sqli://[host default=localhost]:[port default=1533]/[name default=databaseName]:informixserver=[host default=localhost]</string>
+  </entry>
+  
+  <entry>
+    <string>HypersonicSQL-hibernateDialect</string>
+    <string>org.hibernate.dialect.HSQLDialect</string>
+  </entry>
+  <entry>
+    <string>HypersonicSQL-driver</string>
+    <string>org.hsqldb.jdbcDriver</string>
+  </entry>
+  <entry>
+    <string>HypersonicSQL-url</string>
+    <string>jdbc:hsqldb:hsql://[host default=localhost]/</string>
+  </entry>
+  
+  <entry>
+    <string>Ingres-hibernateDialect</string>
+    <string>org.hibernate.dialect.IngresDialect</string>
+  </entry>
+  <entry>
+    <string>Ingres-driver</string>
+    <string>??</string>
+  </entry>
+  <entry>
+    <string>Ingres-url</string>
+    <string>??</string>
+  </entry>
+  
+  <entry>
+    <string>Progress-hibernateDialect</string>
+    <string>org.hibernate.dialect.ProgressDialect</string>
+  </entry>
+  <entry>
+    <string>Progress-driver</string>
+    <string>??</string>
+  </entry>
+  <entry>
+    <string>Progress-url</string>
+    <string>??</string>
+  </entry>
+  
+  <entry>
+    <string>Mckoi SQL-hibernateDialect</string>
+    <string>org.hibernate.dialect.MckoiDialect</string>
+  </entry>
+  <entry>
+    <string>Mckoi SQL-driver</string>
+    <string>com.mckoi.JDBCDriver</string>
+  </entry>
+  <entry>
+    <string>Mckoi SQL-url</string>
+    <string>jdbc:mckoi://localhost/</string>
+  </entry>
+  
+  <entry>
+    <string>Interbase-hibernateDialect</string>
+    <string>org.hibernate.dialect.InterbaseDialect</string>
+  </entry>
+  <entry>
+    <string>Interbase-driver</string>
+    <string>??</string>
+  </entry>
+  <entry>
+    <string>Interbase-url</string>
+    <string>??</string>
+  </entry>
+  
+  <entry>
+    <string>Pointbase-hibernateDialect</string>
+    <string>org.hibernate.dialect.PointbaseDialect</string>
+  </entry>
+  <entry>
+    <string>Pointbase-driver</string>
+    <string>??</string>
+  </entry>
+  <entry>
+    <string>Pointbase-url</string>
+    <string>??</string>
+  </entry>
+  
+  <entry>
+    <string>FrontBase-hibernateDialect</string>
+    <string>org.hibernate.dialect.FrontbaseDialect</string>
+  </entry>
+  <entry>
+    <string>FrontBase-driver</string>
+    <string>??</string>
+  </entry>
+  <entry>
+    <string>FrontBase-url</string>
+    <string>??</string>
+  </entry>
+  
+  <entry>
+    <string>Firebird-hibernateDialect</string>
+    <string>org.hibernate.dialect.FirebirdDialect</string>
+  </entry>
+  <entry>
+    <string>Firebird-driver</string>
+    <string>org.firebirdsql.jdbc.FBDriver</string>
+  </entry>
+  <entry>
+    <string>Firebird-url</string>
+    <string>jdbc:firebirdsql:[host default=localhost]/[port default=3050]:[name default=/firebird/database.gdb]</string>
+  </entry>
+</map>

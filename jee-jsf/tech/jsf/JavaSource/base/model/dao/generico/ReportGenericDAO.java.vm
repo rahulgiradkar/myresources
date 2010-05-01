@@ -1,0 +1,74 @@
+package ${data.config.mainPackage}.${data.bundle.get('package.base')}.${data.bundle.get('package.mvc.model')}.${data.bundle.get('package.mvc.model.dao')}.${data.bundle.get('package.mvc.model.dao.generico')};
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.util.Map;
+
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
+import javax.servlet.ServletContext;
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletResponse;
+
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperRunManager;
+
+
+public abstract class ReportGenericDAO {
+
+	private Connection connection;
+#set($driver = "${data.config.getTech('Database Type')}-driver")	
+#set($url = "${data.config.getTech('Database Type')}-url")	
+	private String conexaoBanco = "${data.getConfigForDatabaseType($url)}?user=${data.config.DbUsername}&password=${data.config.dbPassword}";
+	private String driveBanco = "${data.getConfigForDatabaseType($driver)}";
+
+	FacesContext context;
+	HttpServletResponse response;
+	ExternalContext ec;
+	InputStream reportStream;
+	ServletOutputStream servletOutputStream;
+
+	public String getRealPath(String path, String fileName){
+
+		context = FacesContext.getCurrentInstance();
+
+		ServletContext servletContext = (ServletContext)context.getExternalContext().getContext();
+		String realPath = servletContext.getRealPath(path);
+		String fullPath = realPath + "/" + fileName;
+		return fullPath;
+	}
+
+	/**
+	 * 
+	 * @param relPath Path do relatório
+	 * @param params Mapa de parÃ¢metros necessários para o relatório
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 * @throws IOException
+	 * @throws JRException
+	 */
+	public void gerarRelatorioGenerico(String relPath, Map<String, Object> params) throws ClassNotFoundException, SQLException, IOException, JRException{
+		context = FacesContext.getCurrentInstance();
+		response = (HttpServletResponse) context.getExternalContext().getResponse();  
+		ec = context.getExternalContext();
+		reportStream = ec.getResourceAsStream(relPath);
+		servletOutputStream = response.getOutputStream();  
+
+		Class.forName(this.driveBanco);
+		connection = DriverManager.getConnection(this.conexaoBanco);
+
+		ServletContext servletContext = (ServletContext)context.getExternalContext().getContext();
+
+		JasperRunManager.runReportToPdfStream(reportStream, servletOutputStream, params, connection);
+
+		connection.close();
+
+		response.setContentType("application/pdf");
+		servletOutputStream.flush();  
+		servletOutputStream.close();
+		context.responseComplete();
+	}
+}

@@ -1,0 +1,159 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package ${data.config.mainPackage}.${data.bundle.get('package.base')}.${data.bundle.get('package.mvc.model')}.${data.bundle.get('package.mvc.model.entity')};
+
+import java.io.Serializable;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+/**
+ *
+ * @author NUINF GENERATOR
+ */
+@Entity
+@Table(name = "t_usuario", schema="e_passagem")
+public class UsuarioEntity implements Serializable {
+   
+	private static final long serialVersionUID = 1L;
+
+	@Id
+    @Column(name = "usuidusuario_pk", nullable = false)
+    private Integer usuidusuarioPk;
+    
+	private String nome;
+	private String senha;	
+	
+/*
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "usuidusuarioPk")
+    private Collection<AditivoEntity> aditivoEntityCollection;
+    
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "usridFk")
+    private Collection<EmpresaEntity> empresaEntityCollection;
+    
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "usridFk")
+    private Collection<DadosBancariosEntity> dadosBancariosEntityCollection;
+    
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "usuidusuarioPk")
+    private Collection<MotivacaoEntity> motivacaoEntityCollection;
+    
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "usuidusuarioPk")
+	private Collection<ModalidadeEntity> modalidadeEntityCollection;
+    
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "usridFk")
+    private Collection<ContratoEntity> contratoEntityCollection;
+*/
+	
+    public UsuarioEntity() {
+    }
+
+    public UsuarioEntity(Integer usuidusuarioPk, String nome, String senha) {
+        this.usuidusuarioPk = usuidusuarioPk;
+        this.nome = nome;
+        this.senha = senha;
+    }
+
+    public Integer getUsuidusuarioPk() {
+        return usuidusuarioPk;
+    }
+
+    public void setUsuidusuarioPk(Integer usuidusuarioPk) {
+        this.usuidusuarioPk = usuidusuarioPk;
+    }
+
+    /*
+    public Collection<AditivoEntity> getAditivoEntityCollection() {
+        return aditivoEntityCollection;
+    }
+
+    public void setAditivoEntityCollection(Collection<AditivoEntity> aditivoEntityCollection) {
+        this.aditivoEntityCollection = aditivoEntityCollection;
+    }
+
+    public Collection<EmpresaEntity> getEmpresaEntityCollection() {
+        return empresaEntityCollection;
+    }
+
+    public void setEmpresaEntityCollection(Collection<EmpresaEntity> empresaEntityCollection) {
+        this.empresaEntityCollection = empresaEntityCollection;
+    }
+
+    public Collection<DadosBancariosEntity> getDadosBancariosEntityCollection() {
+        return dadosBancariosEntityCollection;
+    }
+
+    public void setDadosBancariosEntityCollection(Collection<DadosBancariosEntity> dadosBancariosEntityCollection) {
+        this.dadosBancariosEntityCollection = dadosBancariosEntityCollection;
+    }
+
+    public Collection<MotivacaoEntity> getMotivacaoEntityCollection() {
+        return motivacaoEntityCollection;
+    }
+
+    public void setMotivacaoEntityCollection(Collection<MotivacaoEntity> motivacaoEntityCollection) {
+        this.motivacaoEntityCollection = motivacaoEntityCollection;
+    }
+
+    public Collection<ModalidadeEntity> getModalidadeEntityCollection() {
+        return modalidadeEntityCollection;
+    }
+
+    public void setModalidadeEntityCollection(Collection<ModalidadeEntity> modalidadeEntityCollection) {
+        this.modalidadeEntityCollection = modalidadeEntityCollection;
+    }
+
+    public Collection<ContratoEntity> getContratoEntityCollection() {
+        return contratoEntityCollection;
+    }
+
+    public void setContratoEntityCollection(Collection<ContratoEntity> contratoEntityCollection) {
+        this.contratoEntityCollection = contratoEntityCollection;
+    }
+
+*/
+    public String getNome() {
+		return nome;
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+
+	public String getSenha() {
+		return senha;
+	}
+
+	public void setSenha(String senha) {
+		this.senha = senha;
+	}
+
+	@Override
+    public int hashCode() {
+        int hash = 0;
+        hash += (usuidusuarioPk != null ? usuidusuarioPk.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (!(object instanceof UsuarioEntity)) {
+            return false;
+        }
+        UsuarioEntity other = (UsuarioEntity) object;
+        if ((this.usuidusuarioPk == null && other.usuidusuarioPk != null) || (this.usuidusuarioPk != null && !this.usuidusuarioPk.equals(other.usuidusuarioPk))) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public String toString() {
+	return "${data.config.mainPackage}.${data.bundle.get('package.base')}.${data.bundle.get('package.mvc.model')}.${data.bundle.get('package.mvc.model.entity')}.UsuarioEntity[usuidusuarioPk=" + usuidusuarioPk + "]";
+    }
+
+}

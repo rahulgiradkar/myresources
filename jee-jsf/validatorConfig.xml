@@ -1,0 +1,94 @@
+<list>
+  <validatorType>
+    <type>validator.type.notNull</type>
+    <implementationClass>org.hibernate.validator.NotNull</implementationClass>
+  </validatorType>
+  
+  <validatorType>
+    <type>validator.type.notEmpty</type>
+    <implementationClass>org.hibernate.validator.NotEmpty</implementationClass>
+  </validatorType>
+ 
+  <validatorType>
+    <type>validator.type.length</type>
+    <implementationClass>org.hibernate.validator.Length</implementationClass>
+    <parameters>
+      <string>validator.parameter.minLength</string>
+      <string>validator.parameter.maxLength</string>
+    </parameters>
+  </validatorType>
+
+  <validatorType>
+    <type>validator.type.max</type>
+    <implementationClass>org.hibernate.validator.Max</implementationClass>
+    <parameters>
+      <string>validator.parameter.max</string>
+    </parameters>
+  </validatorType>
+
+  <validatorType>
+    <type>validator.type.min</type>
+    <implementationClass>org.hibernate.validator.Min</implementationClass>
+    <parameters>
+      <string>validator.parameter.min</string>
+    </parameters>
+  </validatorType>
+
+  <validatorType>
+    <type>validator.type.range</type>
+    <implementationClass>org.hibernate.validator.Range</implementationClass>
+    <parameters>
+      <string>validator.parameter.minRange</string>
+      <string>validator.parameter.maxRange</string>
+    </parameters>
+  </validatorType>
+  
+  <validatorType>
+    <type>validator.type.datePast</type>
+    <implementationClass>org.hibernate.validator.Past</implementationClass>
+  </validatorType>
+  
+  <validatorType>
+    <type>validator.type.dateFuture</type>
+    <implementationClass>org.hibernate.validator.Future</implementationClass>
+  </validatorType>
+    
+  <validatorType>
+    <type>validator.type.pattern</type>
+    <implementationClass>org.hibernate.validator.Pattern</implementationClass>
+    <parameters>
+      <string>validator.parameter.regexp</string>
+      <string>validator.parameter.regexpFlag</string>
+    </parameters>
+  </validatorType>    
+    
+  <validatorType>
+    <type>validator.type.size</type>
+    <implementationClass>org.hibernate.validator.Size</implementationClass>
+    <parameters>
+      <string>validator.parameter.minSize</string>
+      <string>validator.parameter.maxSize</string>
+    </parameters>
+  </validatorType>  
+    
+  <validatorType>
+    <type>validator.type.email</type>
+    <implementationClass>org.hibernate.validator.Email</implementationClass>
+  </validatorType>
+
+  <validatorType>
+    <type>validator.type.creditCard</type>
+    <implementationClass>org.hibernate.validator.CredidtCard</implementationClass>
+  </validatorType>
+
+  <validatorType>
+    <type>validator.type.digits</type>
+    <implementationClass>org.hibernate.validator.Digits</implementationClass>
+  </validatorType>
+      
+  <validatorType>
+    <type>validator.type.ean</type>
+    <implementationClass>org.hibernate.validator.EAN</implementationClass>
+  </validatorType>
+      
+</list>

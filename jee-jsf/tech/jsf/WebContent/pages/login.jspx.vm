@@ -1,0 +1,108 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:rich="http://richfaces.org/rich"
+      xmlns:a4j="http://richfaces.org/a4j"
+      xmlns:t="http://myfaces.apache.org/tomahawk"
+      xmlns:c="http://java.sun.com/jstl/core"
+      xml:lang="pt-br" lang="pt-br">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+        <title><h:outputText value="#{msg['project.title']}"/></title>
+		<link href="../css/sesace/login.css" rel="stylesheet" type="text/css"/>
+		<link rel="shortcut icon" href="#{request.contextPath}/images/sesace/favicon.ico"/>
+    </head>
+       <f:view>
+        <body>
+		
+        <div id = "central">
+        	<div id="conteudo">
+        		<div class="loginPrincipal">
+        			<img src="../images/sesace/logo_login.png" border="0"/>
+        			<h1 align="center"><h:outputLabel value="#{msg['project.title']}"/></h1>
+        		</div> 
+        	</div>
+  		</div>
+    
+   <div id="area2">
+      <div id = "area">
+        <div class="interno">
+          <h3> <h:outputLabel value="#{msg['login.label.titulo']}"/> </h3>
+          	<br/>
+
+#if($list.contains(${data.config.techOthers}, 'OpenID Login'))
+		  <form action="${request.contextPath}/j_spring_openid_security_check" method="post">
+		  		<div class="labels">
+					<h:outputLabel value="#{msg['page.login.user']}"/>:
+				</div>
+				
+				<div class="loginform">
+					<input type='text' name='j_username' value='#{SPRING_SECURITY_LAST_USERNAME}'/><br/>
+				</div>
+				</br>
+		        <input value="#{msg['login.label.btlogin']}" type="submit" class="buttons"/>
+			<br/>
+			<c:if test="#{not empty param.login_error}">
+				<div class="error">
+					<h:outputLabel value="#{msg['page.login.error']}"/><br/>
+					<h:outputLabel value="#{msg['page.login.error.by']}"/> #{SPRING_SECURITY_LAST_EXCEPTION.message}
+				</div>
+			</c:if>
+		  </form>
+#elseif($list.contains(${data.config.techOthers}, 'SESA-LOGIN'))
+
+			<h:form>
+			  <h:panelGrid columns="2" border="0">
+				<h:outputLabel value="#{msg['login.label.usuario']}"/>
+				<h:inputText id="nome" value="#{usuarioBean.usuarioEntity.nome}" label="#{msg['login.label.usuario']}" size="20" maxlength="20" required="true" styleClass="caixaTexto"/>
+				
+				<h:outputLabel/>
+				<h:outputLabel/>
+				
+				<h:outputLabel value="#{msg['login.label.senha']}"/>
+				<h:inputSecret id="senha" value="#{usuarioBean.usuarioEntity.senha}" label="#{msg['login.label.senha']}" size="20" maxlength="15" required="true" styleClass="caixaTexto" redisplay="false"/>
+			  </h:panelGrid>
+			  <h:panelGrid columns="2">
+			  <a4j:region immediate="true">
+				<h:commandButton value="#{msg['login.label.btlogin']}" action="#{usuarioBean.validarUsuario}" styleClass="buttons"/>
+				<a4j:commandButton value="#{msg['login.label.btclean']}" action="#{usuarioBean.clearForm}" reRender="nome, senha" styleClass="buttons"/>
+			  </a4j:region>
+			  </h:panelGrid>
+			<br/>
+			<rich:messages layout="list" showSummary="false" showDetail="true" style="background-color: #E4E4E4;" styleClass="align:center"/>
+		  </h:form>
+
+#else
+		  <form action="${request.contextPath}/j_spring_security_check" method="POST">
+		  		<div class="labels">
+					<h:outputLabel value="#{msg['page.login.user']}"/>:<br/><br/>
+					<h:outputLabel value="#{msg['page.login.password']}"/>: 
+				</div>
+				
+				<div class="loginform">
+					<input type='text' name='j_username' value='#{SPRING_SECURITY_LAST_USERNAME}'/><br/>
+					<input type='password' name='j_password'/><br/>
+				</div>
+				<br/>
+		        <input value="#{msg['login.label.btlogin']}" type="submit" class="buttons"/>
+			<br/>
+			<c:if test="#{not empty param.login_error}">
+				<div class="error">
+					<h:outputLabel value="#{msg['page.login.error']}"/><br/>
+					<h:outputLabel value="#{msg['page.login.error.by']}"/> #{SPRING_SECURITY_LAST_EXCEPTION.message}
+				</div>
+			</c:if>
+		  </form>
+#end
+        </div>
+      </div>
+
+    </div>
+
+	<div id="rodape"><h:outputLabel value="#{msg['page.rodape.empresa']}"/><br /><h:outputLabel value="#{msg['page.rodape.telefone']}"/></div>
+
+	  </body>
+	</f:view>
+</html>

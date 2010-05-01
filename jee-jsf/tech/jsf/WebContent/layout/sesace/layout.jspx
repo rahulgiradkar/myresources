@@ -1,0 +1,68 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:rich="http://richfaces.org/rich"
+      xmlns:a4j="http://richfaces.org/a4j"
+ 	  xmlns:stella="http://stella.caelum.com.br/faces"
+	  xml:lang="pt" lang="pt-br">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+        <title><h:outputText value="#{msg['project.title']}"/></title>
+        <link href="../css/sesace/layout.css" rel="stylesheet" type="text/css"/>
+        <link rel="shortcut icon" href="#{request.contextPath}/images/sesace/favicon.ico"/>
+		<script src="../js/funcoes.js"/>		
+		<a4j:loadScript src="../js/jquery.maskedinput-1.1.4.js"/>
+    </head>
+    <f:view>
+        <body>
+
+            <!--## TOPO LAYOUT ##-->
+            <div id="topo">
+                <table cellpadding="0" cellspacing="0" align="center" border="0" width="100%">
+                    <tr>
+						<td height="80" valign="middle" width="15%">
+							<img src="../images/sesace/logo_sesa.jpg" border="0" height="70px"/>
+						</td>       
+						<td align="right" style="font-family:Arial, Helvetica, sans-serif;font-weight: bold;font-size:20px; padding: 10px;">
+						<h:outputText value="#{msg['project.title']}"/>
+						</td>
+                    </tr>
+                    <tr>
+                        <td height="20" colspan="3"><ui:include src="menu.jspx"/></td>
+                    </tr>
+                </table>
+            </div>
+
+            <!--## MENSAGENS ##-->
+            <div id="messages">
+                <rich:messages layout="list" showSummary="false" showDetail="true" style="background-color: #ffffff;" styleClass="align:center">
+                    <f:facet name="errorMarker" >
+                        <h:graphicImage value="../images/sesace/alerts/Error.png"/>   
+                    </f:facet>
+
+                    <f:facet name="infoMarker">
+                        <h:graphicImage value="/images/sesace/alerts/Info.png" />
+                    </f:facet>
+
+                    <f:facet name="warnMarker">
+                        <h:graphicImage value="../images/sesace/alerts/Warning.png" />   
+                    </f:facet>
+
+                    <f:facet name="fatalMarker">
+                        <h:graphicImage value="/images/sesace/alerts/AttentionSZ.png" />
+                    </f:facet>				
+                </rich:messages>
+                <rich:spacer width="10px"/>
+            </div>
+
+            <!--## CONTENT LAYOUT CADASTRO##-->
+
+ 			<div >		
+                <!-- ## Cadastro ## -->
+                <ui:insert name="bodyCadastro"/>
+            </div> 
+        </body>
+    </f:view>
+</html>

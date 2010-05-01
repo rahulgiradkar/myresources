@@ -1,0 +1,4 @@
+#foreach( $field in $data.crud.crudClass.fields )
+#set ($fieldWithoutFk = ${stringUtils.capitalizeFirstLetter(${stringUtils.sub(${field.name},"Fk","")})})
+${stringUtils.unCapitalizeFirstLetter(${data.crud.name})}.${field.name}=$fieldWithoutFk
+#end

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="iso-8859-1" ?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0"
+          xmlns="http://www.w3.org/1999/xhtml"
+          xmlns:ui="http://java.sun.com/jsf/facelets"
+          xmlns:h="http://java.sun.com/jsf/html"
+          xmlns:f="http://java.sun.com/jsf/core"
+          xmlns:c="http://java.sun.com/jstl/core"
+          xmlns:a4j="http://richfaces.org/a4j"
+          xmlns:rich="http://richfaces.org/rich">
+#set ($varClassName = $stringUtils.unCapitalizeFirstLetter(${data.crud.crudClass.name}))
+#set ($typeClassName = ${data.crud.crudClass.name})
+
+#set ($varCrudName = $stringUtils.unCapitalizeFirstLetter(${data.crud.name}))
+#set ($typeCrudName = ${data.crud.name})
+    <f:view>
+        <ui:composition template="../layout/sesace/layout.jspx">
+            <br/>
+
+            <ui:define name="pageName">
+            	<h:outputText value="#{msg['relatorio.label.tituloPagina']}"/>
+            </ui:define>
+
+            <!-- ### [INICIO] DECLARACAO DO CORPO DO LAYOUT -->
+            <ui:define name="bodyRelatorio">
+                <br />
+				<rich:panel id="PRINCIPAL" >
+
+					<f:facet name="header">
+						<h:outputText value="#{msg['${varCrudName}.tituloPagina']}"/>
+					</f:facet>
+
+			<!-- ### [inicio] form parametros -->
+			<h:form id="formRelatorio">
+			<a4j:loadScript src="../js/jquery.maskedinput-1.1.4.js"></a4j:loadScript>
+			<fieldset>
+#set($i = 0)
+#foreach( $field in $data.crud.crudClass.fieldsInOrder )
+#**##if($field.getHtmlType().getType() != "html.type.hidden")
+#*	  *##set($i = $i + 1)
+##
+#parse("crud/fieldSearch.vm")
+#end
+#end
+			</fieldset>
+						<h:panelGrid border="0" columns="2">
+								<h:commandLink value="#{msg['button.execReport']}" onclick="javascript:window.open('','busca','height=480,width=640,toolbar=no,scrollbars=no,resizable=yes')" target="busca" action="#{${varCrudName}Bean.gerar${typeCrudName}}">  
+								</h:commandLink> 
+								<h:commandButton action="#{${varCrudName}Bean.limparForm}" value="#{msg['button.clean']}" styleClass="buttons"/>
+                            </h:panelGrid>                    
+                	</a4j:form>
+					<!-- ### [fim] form relat�rio -->
+
+			</rich:panel>
+            </ui:define>
+             <!-- ### [FIM] DECLARACAO DO CORPO DO LAYOUT -->
+
+        </ui:composition>
+    </f:view>   
+</jsp:root>
+

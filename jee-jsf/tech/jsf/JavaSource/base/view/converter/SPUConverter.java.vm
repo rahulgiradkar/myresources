@@ -1,0 +1,43 @@
+package ${data.config.mainPackage}.${data.bundle.get('package.base')}.${data.bundle.get('package.mvc.view')}.${data.bundle.get('package.mvc.view.converter')};
+
+import javax.faces.application.FacesMessage;
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
+import javax.faces.convert.Converter;
+import javax.faces.convert.ConverterException;
+
+/**
+ *
+ * @author ${data.bundle.get('generator.name')}
+ */
+
+public class SPUConverter implements Converter {
+
+	public Object getAsObject(FacesContext context, UIComponent component, String value) throws ConverterException {
+		if (value != null && !value.equals("")) {
+			String spu = value.replaceAll("\\.", "").replaceAll("\\-", "");
+
+			try {
+				// Testa se somente existem numeros.
+				Long.valueOf(spu);
+				return spu;
+			} catch (NumberFormatException e) {
+				FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR,"Erro de conversão","Não foi possível converter o valor para um spu");
+				throw new ConverterException(message);
+			}
+		}
+
+		return value;
+	}
+
+	public String getAsString(FacesContext context, UIComponent component, Object value) throws ConverterException {
+		String spu = (value == null ? null : value.toString());
+
+		if (spu != null && !spu.equals("")) {
+			spu = spu.substring(0, 8) + "-" + spu.substring(8);
+		}
+
+		return spu;
+	}
+
+}

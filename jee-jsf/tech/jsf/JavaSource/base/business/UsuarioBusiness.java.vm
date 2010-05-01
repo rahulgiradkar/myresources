@@ -1,0 +1,51 @@
+package ${data.config.mainPackage}.${data.bundle.get('package.base')}.${data.bundle.get('package.mvc.business')};
+
+import i18n.MsgUtil;
+import br.gov.sesa.base.FabricaBase;
+import ${data.config.mainPackage}.${data.bundle.get('package.base')}.${data.bundle.get('package.mvc.model')}.exceptions.${stringUtils.normalizeClassName(${data.config.appName})}Exception;
+
+import br.gov.sesa.base.seguranca.Seguranca;
+import br.gov.sesa.base.seguranca.modelo.UsuarioVO;
+
+
+/**
+ *
+ * @author ${data.bundle.get('generator.name')}
+ */
+public class UsuarioBusiness {
+	
+	public boolean validarUsuario(String usuario, String senha, int idSistema) throws Exception{
+
+		boolean autorizado;
+
+		try {
+
+			Seguranca seguranca = FabricaBase.getSeguranca();
+            UsuarioVO usuarioVO = seguranca.validarUsuario(usuario, senha, idSistema);
+			autorizado = true;
+        } catch (${stringUtils.normalizeClassName(${data.config.appName})}Exception e) {
+        	MsgUtil.addErrorMessage(e.getMessage());
+            autorizado = false;
+        }
+
+        return autorizado;
+
+	}	
+
+	public UsuarioVO validarUsuario2(String usuario, String senha, int idSistema) throws Exception{
+
+		UsuarioVO usuarioVO = null;
+
+		try {
+
+			Seguranca seguranca = FabricaBase.getSeguranca();
+            usuarioVO = seguranca.validarUsuario(usuario, senha, idSistema);
+			//autorizado = true;
+        } catch (${stringUtils.normalizeClassName(${data.config.appName})}Exception e) {
+        	MsgUtil.addErrorMessage(e.getMessage());
+        }
+
+		return usuarioVO;
+	}
+
+}

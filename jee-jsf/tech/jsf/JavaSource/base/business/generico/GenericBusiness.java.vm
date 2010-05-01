@@ -1,0 +1,18 @@
+package ${data.config.mainPackage}.${data.bundle.get('package.base')}.${data.bundle.get('package.mvc.business')}.${data.bundle.get('package.mvc.business.generico')};
+
+import java.util.List;
+
+/**
+ *
+ * @author ${data.bundle.get('generator.name')}
+ */
+
+public abstract class GenericBusiness<T> {
+
+	public abstract void ${data.bundle.get('crud.method.save')}(T entidade) throws Exception;
+	
+	public abstract void ${data.bundle.get('crud.method.delete')}(T entidade) throws Exception;
+	
+	public abstract List<T>${data.bundle.get('crud.method.search')}(T entidade) throws Exception;
+	
+}

@@ -1,0 +1,41 @@
+package i18n;
+
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
+import ${data.config.mainPackage}.${data.bundle.get('package.base')}.${data.bundle.get('package.mvc.model')}.${data.bundle.get('package.mvc.model.exceptions')}.${stringUtils.normalizeClassName(${data.config.appName})}Exception;
+
+/**
+ * @author ${data.bundle.get('generator.name')}
+ *
+ */
+public class MsgUtil {
+
+
+// suporte as mensagens facex.context
+    
+    public static void addGlobalMessage(String message) {
+        FacesMessage facesMessage = new FacesMessage(message);
+        FacesContext.getCurrentInstance().addMessage(null, facesMessage);
+    }
+
+    public static void addErrorMessage(String message) {
+        FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, message, null);
+        FacesContext.getCurrentInstance().addMessage(null, facesMessage);
+    }
+
+    public static void addWarnMessage(String message) {
+        FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_WARN, message, null);
+        FacesContext.getCurrentInstance().addMessage(null, facesMessage);
+    }
+
+    public static void addFatalMessage(String message) {
+        FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_FATAL, message, null);
+        FacesContext.getCurrentInstance().addMessage(null, facesMessage);
+    }
+
+    public static void addMessage(${stringUtils.normalizeClassName(${data.config.appName})}Exception e) {
+        FacesMessage facesMessage = new FacesMessage(e.getSeverity(), e.getFriendlyMessage(), e.getMessage());
+        FacesContext.getCurrentInstance().addMessage(null, facesMessage);
+    }
+
+}

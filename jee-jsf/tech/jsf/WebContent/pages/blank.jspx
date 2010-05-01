@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="iso-8859-1" ?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0"
+          xmlns="http://www.w3.org/1999/xhtml"
+          xmlns:ui="http://java.sun.com/jsf/facelets"
+          xmlns:h="http://java.sun.com/jsf/html"
+          xmlns:f="http://java.sun.com/jsf/core"
+          xmlns:c="http://java.sun.com/jstl/core"
+          xmlns:a4j="http://richfaces.org/a4j"
+          xmlns:rich="http://richfaces.org/rich">
+
+    <f:view>
+        <ui:composition template="../layout/sesace/layout.jspx">
+
+            <ui:define name="pageName">
+            	<h:outputText value="#{msg['projeto.nome']}"/>
+            </ui:define>
+
+            <ui:define name="bodyCadastro">
+			<br/>
+			<br/>
+			<br/>
+			<br/>
+			<br/>
+			<br/>
+            <h:panelGrid width="100%" style="background-align:center">
+
+			</h:panelGrid>
+            </ui:define>
+        </ui:composition>   
+    </f:view>
+</jsp:root>

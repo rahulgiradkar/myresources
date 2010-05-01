@@ -1,0 +1,81 @@
+package ${data.config.mainPackage}.${data.crud.moduleName}.${data.bundle.get('package.mvc.business')};
+#set ($varClassName = $stringUtils.unCapitalizeFirstLetter(${data.crud.crudClass.name}))
+#set ($typeClassName = ${data.crud.crudClass.name})
+
+#set ($varCrudName = $stringUtils.unCapitalizeFirstLetter(${data.crud.name}))
+#set ($typeCrudName = ${data.crud.name})
+
+import java.util.List;
+import java.util.ResourceBundle;
+
+import javax.faces.application.FacesMessage;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
+import ${data.config.mainPackage}.${data.bundle.get('package.base')}.${data.bundle.get('package.mvc.model')}.exceptions.${stringUtils.normalizeClassName(${data.config.appName})}Exception;
+
+import ${data.config.mainPackage}.${data.bundle.get('package.base')}.${data.bundle.get('package.mvc.business')}.${data.bundle.get('package.mvc.business.generico')}.GenericBusiness;
+import ${data.config.mainPackage}.${data.crud.moduleName}.${data.bundle.get('package.mvc.model')}.${data.bundle.get('package.mvc.model.dao')}.${data.crud.name}DAO;
+import ${data.crud.crudClass.fullName};
+
+/**
+ *
+ * @author ${data.bundle.get('generator.name')}
+ */
+@Component("${varCrudName}Business")
+@Transactional(readOnly = true)
+public class ${typeCrudName}Business extends GenericBusiness<${typeClassName}>{
+
+	@Autowired
+	@Qualifier("${varCrudName}DAO")
+	private ${typeCrudName}DAO ${varCrudName}DAO;
+	ResourceBundle rb = ResourceBundle.getBundle("i18n.${data.config.appName}_pt");
+
+	public void set${typeCrudName}DAO(${typeCrudName}DAO ${varCrudName}DAO) {
+		this.${varCrudName}DAO = ${varCrudName}DAO;
+	}
+
+	public List<${typeClassName}> ${data.bundle.get('crud.method.search')}(${typeClassName} ${varClassName}) throws ${stringUtils.normalizeClassName(${data.config.appName})}Exception {
+		List<${typeClassName}> ${varCrudName}Lista = ${varCrudName}DAO.${data.bundle.get('crud.method.search')}(${varClassName});
+
+		return ${varCrudName}Lista;
+	}
+
+	@Transactional(readOnly = false)
+	public void ${data.bundle.get('crud.method.delete')}(${typeClassName} ${varClassName}) throws ${stringUtils.normalizeClassName(${data.config.appName})}Exception {
+		this.${varCrudName}DAO.${data.bundle.get('crud.method.delete')}(${varClassName}, ${varClassName}.get$stringUtils.capitalizeFirstLetter(${data.crud.crudClass.primaryCrudField.name})());
+	}
+
+	@Transactional(readOnly = false)
+	public void ${data.bundle.get('crud.method.save')}(${typeClassName} ${varClassName}) throws ${stringUtils.normalizeClassName(${data.config.appName})}Exception {
+
+#if((${data.crud.crudClass.primaryCrudField.getClassDataType()}) == "java.lang.String")
+		if(${varClassName}.get$stringUtils.capitalizeFirstLetter(${data.crud.crudClass.primaryCrudField.name})() == null || ${varClassName}.get$stringUtils.capitalizeFirstLetter(${data.crud.crudClass.primaryCrudField.name})().equals("")){
+#else
+		if(${varClassName}.get$stringUtils.capitalizeFirstLetter(${data.crud.crudClass.primaryCrudField.name})() == null || ${varClassName}.get$stringUtils.capitalizeFirstLetter(${data.crud.crudClass.primaryCrudField.name})() == 0){
+#end
+			this.${varCrudName}DAO.inserir(${varClassName});
+		}else{
+			this.${varCrudName}DAO.atualizar(${varClassName});
+		}
+	}
+
+#foreach( $field in $data.crud.crudClass.fieldsInOrder )
+#set ($varFieldName = $stringUtils.capitalizeFirstLetter(${field.name}))
+#if(($field.getHtmlType().getType() == "html.type.combo") && ($field.getClassDataType() != "char") && ($field.getClassDataType() != "java.lang.Character"))
+	public List<javax.faces.model.SelectItem> popularCombo${varFieldName}(){
+		return ${varCrudName}DAO.popularCombo${varFieldName}();
+	}
+#elseif(($field.getHtmlType().getType() == "html.type.radio") && ($field.getClassDataType() != "char") && ($field.getClassDataType() != "java.lang.Character"))
+	public List<javax.faces.model.SelectItem> popularRadio${varFieldName}(){
+		return ${varCrudName}DAO.popularRadio${varFieldName}();
+	}
+#elseif(($field.getHtmlType().getType() == "html.type.suggestionbox"))
+	public List<${field.classDataType}> get${varFieldName}SuggestionBox(String valor){
+		return ${varCrudName}DAO.get${varFieldName}SuggestionBox(valor);
+	}
+#end
+#end
+}

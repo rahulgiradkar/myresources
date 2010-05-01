@@ -1,0 +1,3 @@
+
+${stringUtils.unCapitalizeFirstLetter(${data.crud.name})}.tituloPagina=${data.crud.name}
+${stringUtils.unCapitalizeFirstLetter(${data.crud.name})}.listOf=Lista de ${data.crud.name}

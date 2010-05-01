@@ -1,0 +1,115 @@
+* { padding:0px; margin:0px; font-family:Arial, Helvetica, sans-serif; }
+
+#layout { width:995px; margin:auto; }
+
+.loginPrincipal {
+	width:100%;
+	height:150px;
+	background-repeat: no-repeat;
+	background-position:center;
+	position:relative;
+	margin-top:60px;
+}
+
+#central{
+
+}
+
+#area2 {
+	font-family:Arial, Helvetica, sans-serif;
+	color:#666666;
+	font-size:11px;
+	border: 2px solid #E4E4E4;
+	width: 350px;
+	height: 320px;
+	position: relative;
+	left:-130px;
+	padding:18px;
+	margin:80px 0px 20px 0;
+	float:right;
+	
+	}
+	
+.interno {
+	padding-top: 100px;
+	padding-left: 100px;
+}
+
+#conteudo_central{ float:center; width:600px; margin:35px 8px 0px 5px;}
+
+#area {
+	background: #E4E4E4;
+	height:320px;
+}
+
+
+.textoRodape {
+	width: 100%;
+	text-align:center;
+	color:#4A79AD;
+	position:relative;
+	padding-top: 15px;
+}
+	
+
+#conteudo { 
+	
+	_width:500px;
+	float:left; 
+	font-family:Arial, Helvetica, sans-serif;
+	color:#666666;
+	font-size:11px;
+	border: 0px solid #E4E4E4;
+	width: 300px;
+	height: 320px;
+	position: relative;
+	left:180px;
+	padding:40px;
+	margin:60px 0px 40px 0;
+	}
+	#conteudo  h2 { font-size:18px; font-family:Verdana, Arial, Helvetica, sans-serif; } 
+    #conteudo .titulo{ font-size:10px; font-family:Verdana, Arial, Helvetica, sans-serif; color:#FFCC00;} 
+	#conteudo  h3 { font-size:14px; color:#008A4D; align: center;}
+	
+
+
+#rodape { width:100%;
+			text-align:center;
+			font-size:11px;
+			background:url(../../images/sesace/back_rodape.png) repeat-x; height:35px; padding-top:5px; margin-bottom: 13px; clear: both;
+}
+
+.rich-messages-marker img{
+	padding-right: 7px; 
+}
+
+.rich-messages-label{
+	color: #000000;
+	font-weight: bold;
+}
+
+.labels
+{
+padding:0px;
+position:absolute;
+}
+
+.loginform
+{
+position:relative;
+left:65px;
+padding:0px;
+width:200px;
+}
+
+.buttons{
+	border:1px solid #c0c0c0;
+	font-family:Verdana, Arial, Helvetica, sans-serif;
+	font-size:7.5pt;
+	height:18px;
+	width:70px;
+	padding:0px;
+	margin: 1px;	
+	color: #134f93;
+	cursor: hand;
+}

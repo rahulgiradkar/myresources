@@ -1,0 +1,18 @@
+<list>
+  <fieldLocation>
+    <id>html.field.location.search</id>
+    <selectedByDefault>true</selectedByDefault>
+  </fieldLocation>
+  <fieldLocation>
+    <id>html.field.location.searchResults</id>
+    <selectedByDefault>true</selectedByDefault>
+  </fieldLocation>  
+  <fieldLocation>
+    <id>html.field.location.insert</id>
+    <selectedByDefault>true</selectedByDefault>
+  </fieldLocation>
+  <fieldLocation>
+    <id>html.field.location.edit</id>
+    <selectedByDefault>true</selectedByDefault>
+  </fieldLocation>
+</list>

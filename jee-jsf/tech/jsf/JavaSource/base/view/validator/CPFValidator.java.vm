@@ -1,0 +1,33 @@
+package ${data.config.mainPackage}.${data.bundle.get('package.base')}.${data.bundle.get('package.mvc.view')}.${data.bundle.get('package.mvc.view.validator')};
+
+import javax.faces.application.FacesMessage;
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
+import javax.faces.validator.Validator;
+import javax.faces.validator.ValidatorException;
+
+import ${data.config.mainPackage}.${data.bundle.get('package.base')}.${data.bundle.get('package.mvc.view')}.${data.bundle.get('package.mvc.view.util')}.ValidationHelper;
+
+/**
+ *
+ * @author ${data.bundle.get('generator.name')}
+ */
+
+public class CPFValidator implements Validator {
+
+	public void validate(FacesContext context, UIComponent component, Object value)
+			throws ValidatorException {
+		
+		if(value != null){
+			String valor = value.toString();
+			
+			if(!ValidationHelper.validateCpf(valor)){
+				FacesMessage message = new FacesMessage();
+				message.setSeverity(FacesMessage.SEVERITY_ERROR);
+				message.setSummary("Erro de Validação");
+				message.setDetail("CPF inválido");
+				throw new ValidatorException(message);
+			}
+		}
+	}
+}

@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<faces-config
+    xmlns="http://java.sun.com/xml/ns/javaee"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_1_2.xsd"
+    version="1.2">
+
+	<application>
+		<view-handler>com.sun.facelets.FaceletViewHandler</view-handler>
+		<el-resolver> org.springframework.web.jsf.el.SpringBeanFacesELResolver</el-resolver>
+		<message-bundle>i18n.messages</message-bundle>
+		<resource-bundle>
+			<base-name>i18n.${data.config.appName}</base-name>
+			<var>msg</var>
+		</resource-bundle>
+	</application>
+
+	<!--    C O N V E R T E R S    -->
+
+	<converter>
+		<converter-id>converter.GenericConverter</converter-id>
+		<converter-class>${data.config.mainPackage}.${data.bundle.get('package.base')}.${data.bundle.get('package.mvc.view')}.${data.bundle.get('package.mvc.view.converter')}.${data.bundle.get('package.mvc.view.converter.generico')}.GenericConverter</converter-class>
+	</converter>
+
+	<!--    V A L I D A T O R S    -->
+
+	<validator>
+		<validator-id>validator.CPFValidator</validator-id>
+		<validator-class>${data.config.mainPackage}.${data.bundle.get('package.base')}.${data.bundle.get('package.mvc.view')}.${data.bundle.get('package.mvc.view.validator')}</validator-class>
+	</validator>
+
+	<validator>
+		<validator-id>validator.CNPJValidator</validator-id>
+		<validator-class>${data.config.mainPackage}.${data.bundle.get('package.base')}.${data.bundle.get('package.mvc.view')}.${data.bundle.get('package.mvc.view.validator')}</validator-class>
+	</validator>
+
+	<!--    M A N A G E D   B E A N S    -->
+	<managed-bean>
+		<managed-bean-name>menuBean</managed-bean-name>
+		<managed-bean-class>${data.config.mainPackage}.${data.bundle.get('package.base')}.${data.bundle.get('package.mvc.view')}.${data.bundle.get('package.mvc.view.util')}.MenuBean</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
+#if($list.contains(${data.config.techOthers}, 'SESA-LOGIN'))
+	<managed-bean>
+		<managed-bean-name>usuarioBean</managed-bean-name>
+		<managed-bean-class>${data.config.mainPackage}.${data.bundle.get('package.base')}.${data.bundle.get('package.mvc.view')}.UsuarioBean</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+	</managed-bean>
+#end
+
+	<!--    R E G R A S   D E   N A V E G A C A O    D O    M E N U    -->
+	<navigation-rule>
+		<navigation-case>
+			<from-outcome>blank</from-outcome>
+			<to-view-id>/pages/blank.jspx</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+
+	<navigation-rule>
+		<navigation-case>
+			<from-outcome>login</from-outcome>
+			<to-view-id>/pages/login.jspx</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>	
+#if($list.contains(${data.config.techOthers}, 'SESA-LOGIN'))
+	<navigation-rule>
+		<navigation-case>
+			<from-outcome>AcessoLiberado</from-outcome>
+			<to-view-id>/pages/blank.jspx</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+
+	<navigation-rule>
+		<navigation-case>
+			<from-outcome>AcessoBloqueado</from-outcome>
+			<to-view-id>/pages/login.jspx</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	<lifecycle>
+		<phase-listener>${data.config.mainPackage}.${data.bundle.get('package.base')}.${data.bundle.get('package.mvc.view')}.${data.bundle.get('package.mvc.view.listener')}.LoginPhaseListener</phase-listener>
+	</lifecycle>
+#end
+</faces-config>
