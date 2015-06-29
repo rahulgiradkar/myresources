@@ -1,0 +1,1 @@
+This resource of java code have the objective of best practices.
